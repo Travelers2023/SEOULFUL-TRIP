@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.seoulfultrip'
+    namespace 'com.seoulfultrip.seoulfultrip'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.seoulfultrip"
+        applicationId "com.seoulfultrip.seoulfultrip"
         minSdk 24
         targetSdk 33
         versionCode 1
