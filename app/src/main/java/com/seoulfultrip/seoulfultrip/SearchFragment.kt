@@ -1,4 +1,4 @@
-package com.example.seoulfultrip
+package com.seoulfultrip.seoulfultrip
 
 import android.content.Context
 import android.os.Bundle
@@ -9,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.seoulfultrip.databinding.FragmentSearchBinding
-import com.example.seoulfultrip.databinding.PlaceRetrofitBinding
-import com.google.gson.GsonBuilder
+import com.example.seoulfultrip.GetSearchPlace
+import com.example.seoulfultrip.Items
+import com.example.seoulfultrip.PlaceAPI
+import com.seoulfultrip.seoulfultrip.databinding.FragmentSearchBinding
+import com.seoulfultrip.seoulfultrip.databinding.PlaceRetrofitBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
