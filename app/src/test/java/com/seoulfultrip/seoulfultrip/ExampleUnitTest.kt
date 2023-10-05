@@ -1,4 +1,4 @@
-package com.example.seoulfultrip
+package com.seoulfultrip.seoulfultrip
 
 import org.junit.Test
 
