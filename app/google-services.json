@@ -12,7 +12,12 @@
           "package_name": "com.seoulfultrip.seoulfultrip"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "999447149122-00rd1ar1athu5eruca8a1k2j1gv08de6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD_q94C_-j3GV0u40n0wwF4tX61HIE4yUg"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999447149122-00rd1ar1athu5eruca8a1k2j1gv08de6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

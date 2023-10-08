@@ -9,7 +9,7 @@ class MyApplication : MultiDexApplication() {
     companion object{
         lateinit var auth : FirebaseAuth
         var email : String? = null
-        fun checkAuth() : Boolean{
+        fun checkAuth() : Boolean{ // 인증이 되었는지 체크하는 함수
             var currentUser = auth.currentUser
             return currentUser?.let {
                 email = currentUser.email
