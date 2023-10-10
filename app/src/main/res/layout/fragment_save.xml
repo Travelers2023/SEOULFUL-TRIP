@@ -19,11 +19,11 @@ tools:context=".SaveFragment">
             <!-- 툴바 테두리 의논 -->
 
             <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:id="@+id/toolbar"
-                app:menu="@menu/menu_saveselect"
-                style="@style/Widget.MaterialComponents.Toolbar.Primary" />
+                app:menu="@menu/menu_saveselect" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
