@@ -9,7 +9,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.seoulfultrip.seoulfultrip.databinding.ActivityAuthBinding
@@ -56,7 +55,8 @@ class AuthActivity : AppCompatActivity() {
                                 if(sendTask.isSuccessful){
                                     // Log.d("mobileApp", "회원가입 성공..이메일 확인")
                                     Toast.makeText(baseContext, "회원가입 성공..이메일 확인", Toast.LENGTH_LONG).show()
-                                    changeVisibility("login")
+//                                    changeVisibility("login")
+                                    finish()
                                 }
                                 else{
                                     // Log.d("mobileApp", "메일 전송 실패...")
@@ -85,7 +85,7 @@ class AuthActivity : AppCompatActivity() {
                         if(MyApplication.checkAuth()){
                             MyApplication.email = email // 이메일 정보 저장
                             Toast.makeText(baseContext, "로그인 성공..", Toast.LENGTH_LONG).show()
-                            changeVisibility("login")
+//                            changeVisibility("login")
                             finish()
                         }
                         else{
