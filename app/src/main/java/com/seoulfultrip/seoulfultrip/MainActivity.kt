@@ -1,11 +1,12 @@
 package com.seoulfultrip.seoulfultrip
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.seoulfultrip.seoulfultrip.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.seoulfultrip.seoulfultrip.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
@@ -16,35 +17,46 @@ class MainActivity : AppCompatActivity() {
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        bottomNavigationView = findViewById(R.id.bottomNavigationView)
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav1 -> {
-                    updateIcons(item, R.drawable.home_1)
-                    loadFragment(HomeFragment())
-                    supportActionBar?.title = "Home page"
+        supportActionBar?.title = "Home page"
+
+        if(MyApplication.checkAuth()){bottomNavigationView = findViewById(R.id.bottomNavigationView)
+            bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.nav1 -> {
+                        updateIcons(item, R.drawable.home_1)
+                        loadFragment(HomeFragment())
+                        supportActionBar?.title = "Home page"
+                    }
+                    R.id.nav2 -> {
+                        loadFragment(SearchFragment())
+                        supportActionBar?.title = "Search"
+                        updateIcons(item, R.drawable.search_1)
+                    }
+                    R.id.nav3 -> {
+                        loadFragment(SaveFragment())
+                        supportActionBar?.title = "Character"
+                        updateIcons(item, R.drawable.star_1)
+                    }
+                    R.id.nav4 -> {
+                        loadFragment(MyFragment())
+                        supportActionBar?.title = "Review"
+                        updateIcons(item, R.drawable.my_1)
+                    }
                 }
-                R.id.nav2 -> {
-                    loadFragment(SearchFragment())
-                    supportActionBar?.title = "Search"
-                    updateIcons(item, R.drawable.search_1)
-                }
-                R.id.nav3 -> {
-                    loadFragment(SaveFragment())
-                    supportActionBar?.title = "Character"
-                    updateIcons(item, R.drawable.star_1)
-                }
-                R.id.nav4 -> {
-                    loadFragment(MyFragment())
-                    supportActionBar?.title = "Review"
-                    updateIcons(item, R.drawable.my_1)
-                }
+                true
             }
-            true
+            // Set the default fragment to load when the activity is created
+            loadFragment(HomeFragment())
+            bottomNavigationView.selectedItemId = R.id.nav1
         }
-        // Set the default fragment to load when the activity is created
-        loadFragment(HomeFragment())
-        bottomNavigationView.selectedItemId = R.id.nav1
+        else {
+            val intent = Intent(this, AuthActivity::class.java)
+            startActivity(intent)
+        }
+
+//        MyApplication.db.collection("users").document(auth.uid.toString())
+//            .get()
+//            .addOnSuccessListener {  }
 
     }
     override fun onStart() {
@@ -54,41 +66,43 @@ class MainActivity : AppCompatActivity() {
 
 //            updateUserLevelBasedOnReviewCount(auth.uid.toString())
 //
-//            if(MyApplication.checkAuth()){
+        if(MyApplication.checkAuth()) {
 
-        bottomNavigationView = findViewById(R.id.bottomNavigationView)
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav1 -> {
-                    updateIcons(item, R.drawable.home_1)
-                    loadFragment(HomeFragment())
-                    supportActionBar?.title = "Home page"
+            bottomNavigationView = findViewById(R.id.bottomNavigationView)
+            bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.nav1 -> {
+                        updateIcons(item, R.drawable.home_1)
+                        loadFragment(HomeFragment())
+                        supportActionBar?.title = "Home page"
+                    }
+
+                    R.id.nav2 -> {
+                        loadFragment(SearchFragment())
+                        supportActionBar?.title = "Search"
+                        updateIcons(item, R.drawable.search_1)
+                    }
+
+                    R.id.nav3 -> {
+                        loadFragment(SaveFragment())
+                        supportActionBar?.title = "Character"
+                        updateIcons(item, R.drawable.star_1)
+                    }
+
+                    R.id.nav4 -> {
+                        loadFragment(MyFragment())
+                        supportActionBar?.title = "Review"
+                        updateIcons(item, R.drawable.my_1)
+                    }
                 }
-                R.id.nav2 -> {
-                    loadFragment(SearchFragment())
-                    supportActionBar?.title = "Search"
-                    updateIcons(item, R.drawable.search_1)
-                }
-                R.id.nav3 -> {
-                    loadFragment(SaveFragment())
-                    supportActionBar?.title = "Character"
-                    updateIcons(item, R.drawable.star_1)
-                }
-                R.id.nav4 -> {
-                    loadFragment(MyFragment())
-                    supportActionBar?.title = "Review"
-                    updateIcons(item, R.drawable.my_1)
-                }
+                true
+
             }
-            true
-
-        }
-//            else {
-//                val intent = Intent(this, AuthActivity::class.java)
-//                startActivity(intent)
-//            }
+        }else {
+                val intent = Intent(this, AuthActivity::class.java)
+                startActivity(intent)
+            }
     }
-
     private fun updateIcons(selectedItem: MenuItem, selectedIconRes: Int) {
         // 선택된 항목의 아이콘을 선택된 아이콘으로 변경합니다.
         selectedItem.setIcon(selectedIconRes)
@@ -116,5 +130,8 @@ class MainActivity : AppCompatActivity() {
         transaction.addToBackStack(null) // Optional: Add the fragment to the back stack
         transaction.commit()
     }
+
 }
+
+
 

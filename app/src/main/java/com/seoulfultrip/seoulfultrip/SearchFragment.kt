@@ -111,7 +111,7 @@ class SearchFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<GetSearchPlace>, t: Throwable) {
+            override fun onFailure(call: retrofit2.Call<GetSearchPlace>, t: Throwable) {
                 Log.d(" 결과", "실패")
             }
         })
