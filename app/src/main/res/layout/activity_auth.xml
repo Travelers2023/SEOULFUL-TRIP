@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/authMainTextView_Welcom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:text="Welcom to"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/authMainTextView_Seoulful"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/authMainTextView_Welcom"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:text="SEOULFUL TRIP"
+        android:textColor="#799EEA"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/goSignInBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_solid"
+        android:text="Sign In"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_above="@id/goSignUpBtn"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/goSignUpBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Sign Up"
+        android:textColor="#799EEA"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:background="@drawable/btn_line" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/authTextView_SignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:textColor="@color/black"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/authTextView_LogIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="35dp"
+            android:textColor="@color/black"
+            android:text="Log In"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/logoutBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_solid"
+            android:text="Log out"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/authEmailEditView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_line"
+            android:hint="Email Adress"
+            android:layout_gravity="center_vertical"
+            android:padding="15dp"
+            android:inputType="textEmailAddress"
+            android:textColorHint="#dedede"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/authPasswordEditView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_line"
+            android:hint="Password"
+            android:layout_gravity="center_vertical"
+            android:padding="15dp"
+            android:inputType="textPassword"
+            android:textColorHint="#dedede"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/authConfirmPasswordEditView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_line"
+            android:hint="Confirm Password"
+            android:layout_gravity="center_vertical"
+            android:padding="15dp"
+            android:inputType="textPassword"
+            android:textColorHint="#dedede"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/signUpBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_solid"
+            android:textColor="@color/white"
+            android:text="Sign Up"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_solid"
+            android:textColor="@color/white"
+            android:text="Log In"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/line_text_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_centerVertical="true"
+                android:background="@color/black" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="?android:attr/colorBackground"
+                android:gravity="center_horizontal"
+                android:text="or Sign Up with" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/line_text_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_centerVertical="true"
+                android:background="@color/black" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="?android:attr/colorBackground"
+                android:gravity="center_horizontal"
+                android:text="or Log In with" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/login_with_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/login_Google"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/icon_naver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_kakao" />
+
+            <ImageView
+                android:id="@+id/icon_kakao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_kakao" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

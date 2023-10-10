@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "999447149122",
+    "project_id": "seoulfultrip",
+    "storage_bucket": "seoulfultrip.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999447149122:android:16621569347012848d8bdb",
+        "android_client_info": {
+          "package_name": "com.seoulfultrip.seoulfultrip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999447149122-00rd1ar1athu5eruca8a1k2j1gv08de6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_q94C_-j3GV0u40n0wwF4tX61HIE4yUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999447149122-00rd1ar1athu5eruca8a1k2j1gv08de6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
