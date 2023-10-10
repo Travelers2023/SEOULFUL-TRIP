@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.seoulfultrip.seoulfultrip.databinding.ActivityAuthBinding
@@ -143,29 +145,29 @@ class AuthActivity : AppCompatActivity() {
                         if(task.isSuccessful){
                             MyApplication.email = account.email
                              changeVisibility("login") // 로그인 화면으로 넘어감
-                            Log.d("ToyProject", "GoogleSingIn - Successful")
+                            Log.d("SWProject", "GoogleSingIn - Successful")
                             finish()
                         }
                         else {
                             changeVisibility("logout")
-                            Log.d("ToyProject", "GoogleSingIn - NOT Successful")
+                            Log.d("SWProject", "GoogleSingIn - NOT Successful")
                         }
                     }
             } catch (e: ApiException){
                 changeVisibility("logout")
-                Log.d("ToyProject", "GoogleSingIn - ${e.message}")
+                Log.d("SWProject", "GoogleSingIn - ${e.message}")
             }
         }
-//        binding.googleLoginBtn.setOnClickListener {
-//            //구글 로그인.................... 런처 실행
-//            val gso : GoogleSignInOptions = GoogleSignInOptions
-//                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(getString(R.string.default_web_client_id))
-//                .requestEmail()
-//                .build()
-//            val signInIntent : Intent = GoogleSignIn.getClient(this, gso).signInIntent // 인텐트 실행 (구글 기본앱 실행)
-//            requestLauncher.launch(signInIntent)
-//        }
+        binding.loginGoogle.setOnClickListener {
+            //구글 로그인.................... 런처 실행
+            val gso : GoogleSignInOptions = GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+            val signInIntent : Intent = GoogleSignIn.getClient(this, gso).signInIntent // 인텐트 실행 (구글 기본앱 실행)
+            requestLauncher.launch(signInIntent)
+        }
     }
 
 //    fun updateEmail(docRef: DocumentReference, updatedValue: String) {
@@ -220,7 +222,7 @@ class AuthActivity : AppCompatActivity() {
                 authConfirmPasswordEditView.visibility= View.VISIBLE
                 signUpBtn.visibility= View.VISIBLE
                 lineTextSignup.visibility = View.VISIBLE
-                signupWithBtn.visibility = View.VISIBLE
+                loginWithBtn.visibility = View.VISIBLE
             }
 
         }else if(mode.equals("login")) {
@@ -233,7 +235,6 @@ class AuthActivity : AppCompatActivity() {
                 authTextViewSignUp.visibility = View.GONE
                 authConfirmPasswordEditView.visibility= View.GONE
                 lineTextSignup.visibility = View.GONE
-                signupWithBtn.visibility = View.GONE
                 signUpBtn.visibility= View.GONE
 
                 authTextViewLogIn.visibility = View.VISIBLE
