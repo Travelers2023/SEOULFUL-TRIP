@@ -1,6 +1,7 @@
 package com.seoulfultrip.seoulfultrip
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -31,6 +32,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 
+/*
 class PlaceRetrofitViewHolder(val binding: PlaceRetrofitBinding): RecyclerView.ViewHolder(binding.root)
 class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
@@ -54,7 +56,9 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
     }
 
 }
+*/
 
+ */
 class SearchFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -75,7 +79,7 @@ class SearchFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentSearchBinding.inflate(inflater, container, false)
 
-
+/*
         val CLIENT_ID = "2KTCwVgsVBGNBNdgkM5p"
         val CLIENT_SECRET = "N52lPewB0q"
         val BASE_URL_PLACE_API = "https://openapi.naver.com/"
@@ -84,7 +88,8 @@ class SearchFragment : Fragment() {
             .baseUrl(BASE_URL_PLACE_API)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
+*/
+    /*
     binding.btnSearch.setOnClickListener{
 
         var keyword = binding.edtProduct.text.toString()
@@ -110,9 +115,16 @@ class SearchFragment : Fragment() {
             }
         })
 
-    }
+    }*/
 
+        binding.btnSearch.setOnClickListener{
 
+            var keyword = binding.edtProduct.text.toString()
+           val intent = Intent(getActivity(), SearchResultActivity::class.java)
+            intent.putExtra("keyword", keyword)
+            binding.edtProduct.text.clear()
+            startActivity(intent)
+        }
 
         return binding.root
 
