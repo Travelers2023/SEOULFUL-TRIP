@@ -155,8 +155,8 @@
 
         <RelativeLayout
             android:id="@+id/line_text_signup"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:visibility="gone">
 
@@ -170,7 +170,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="@color/white"
+                android:background="?android:attr/colorBackground"
                 android:gravity="center_horizontal"
                 android:text="or Sign Up with" />
 
@@ -178,8 +178,8 @@
 
         <RelativeLayout
             android:id="@+id/line_text_login"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:visibility="gone">
 
@@ -193,40 +193,11 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="@color/white"
+                android:background="?android:attr/colorBackground"
                 android:gravity="center_horizontal"
                 android:text="or Log In with" />
 
         </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/signupWithBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/icon_google_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_kakao" />
-
-            <ImageView
-                android:id="@+id/icon_naver_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_kakao" />
-
-            <ImageView
-                android:id="@+id/icon_kakao_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_kakao" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/login_with_btn"
@@ -237,11 +208,10 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <ImageView
-                android:id="@+id/icon_google"
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/login_Google"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_kakao" />
+                android:layout_height="wrap_content"/>
 
             <ImageView
                 android:id="@+id/icon_naver"
