@@ -12,9 +12,9 @@ import android.widget.ImageButton
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.seoulfultrip.GetSearchPlace
-import com.example.seoulfultrip.Items
-import com.example.seoulfultrip.PlaceAPI
+import com.seoulfultrip.seoulfultrip.GetSearchPlace
+import com.seoulfultrip.seoulfultrip.Items
+import com.seoulfultrip.seoulfultrip.PlaceAPI
 import com.seoulfultrip.seoulfultrip.R
 import com.seoulfultrip.seoulfultrip.databinding.ActivityMainBinding
 import com.seoulfultrip.seoulfultrip.databinding.ActivitySearchResultBinding
@@ -47,6 +47,7 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
         binding.itemType.text = model.category
         binding.itemMemo.text=model.description //*화면에 표시안됨
         binding.itemRoad.text=model.roadAddress
+
 
     }
 
@@ -88,7 +89,8 @@ class SearchResultActivity : AppCompatActivity()  {
                 if(response.isSuccessful){
                     binding.retrofitRecyclerView.layoutManager= LinearLayoutManager(this@SearchResultActivity)
                     binding.retrofitRecyclerView.adapter = PlaceRetrofitAdapter(this@SearchResultActivity,
-                        response?.body()!!.items ) //GetSearchPlace전달 (구조 확인 잘하기)
+                        response?.body()!!.items) //GetSearchPlace전달 (구조 확인 잘하기)
+
                 }
             }
 

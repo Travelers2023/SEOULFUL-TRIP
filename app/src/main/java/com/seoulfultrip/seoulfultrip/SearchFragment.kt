@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.seoulfultrip.GetSearchPlace
-import com.example.seoulfultrip.Items
-import com.example.seoulfultrip.PlaceAPI
+import com.seoulfultrip.seoulfultrip.GetSearchPlace
+import com.seoulfultrip.seoulfultrip.Items
+import com.seoulfultrip.seoulfultrip.PlaceAPI
 import com.seoulfultrip.seoulfultrip.databinding.FragmentSearchBinding
 import com.seoulfultrip.seoulfultrip.databinding.PlaceRetrofitBinding
 import retrofit2.Call
