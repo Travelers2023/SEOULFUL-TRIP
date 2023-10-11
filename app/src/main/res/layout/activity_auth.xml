@@ -213,17 +213,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <ImageView
-                android:id="@+id/icon_naver"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_kakao" />
+<!--            <com.navercorp.nid.oauth.view.NidOAuthLoginButton-->
+<!--                android:id="@+id/login_naver"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginTop="10dp"/>-->
 
-            <ImageView
-                android:id="@+id/icon_kakao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_kakao" />
+<!--            <ImageView-->
+<!--                android:id="@+id/icon_kakao"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/icon_kakao" />-->
 
         </LinearLayout>
 
