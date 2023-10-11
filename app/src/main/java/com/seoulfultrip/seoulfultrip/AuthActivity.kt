@@ -72,33 +72,33 @@ class AuthActivity : AppCompatActivity() {
                     }
                 }
         }
-
         binding.loginBtn.setOnClickListener {
-            //이메일, 비밀번호 로그인.......................
-            val email:String = binding.authEmailEditView.text.toString() //입력한 email, pw 정보 string으로 읽어오기
-            val password:String = binding.authPasswordEditView.text.toString()
-            MyApplication.auth.signInWithEmailAndPassword(email,password)
-                .addOnCompleteListener(this){ task ->
+            // 이메일, 비밀번호 로그인
+            val email: String = binding.authEmailEditView.text.toString()
+            val password: String = binding.authPasswordEditView.text.toString()
+            MyApplication.auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
                     binding.authEmailEditView.text.clear()
                     binding.authPasswordEditView.text.clear()
-                    if(task.isSuccessful){
-                        if(MyApplication.checkAuth()){
+                    if (task.isSuccessful) {
+                        if (MyApplication.checkAuth()) {
                             MyApplication.email = email // 이메일 정보 저장
                             Toast.makeText(baseContext, "로그인 성공..", Toast.LENGTH_LONG).show()
-//                            changeVisibility("login")
                             finish()
-                        }
-                        else{
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent) // Main 액티비티로 인텐트 전환
+                        } else {
                             Toast.makeText(baseContext, "이메일 인증 실패..", Toast.LENGTH_LONG).show()
-                             changeVisibility("logout")
+                            changeVisibility("logout")
                         }
-                    }
-                    else{
+                    } else {
                         Toast.makeText(baseContext, "로그인 실패..", Toast.LENGTH_LONG).show()
                         changeVisibility("logout")
                     }
                 }
         }
+
+
 
         binding.logoutBtn.setOnClickListener {
             //로그아웃...........
