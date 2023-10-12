@@ -1,4 +1,4 @@
-package com.example.seoulfultrip
+package com.seoulfultrip.seoulfultrip
 
 data class GetSearchPlace(
     var lastBuildDate: String = "", //검색 결과를 생성한 시간
@@ -20,3 +20,4 @@ data class Items(
     var mapy: Int = 0,              //y좌표
 
 )
+
