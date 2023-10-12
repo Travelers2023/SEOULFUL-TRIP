@@ -1,5 +1,6 @@
-package com.example.seoulfultrip
+package com.seoulfultrip.seoulfultrip
 
+import com.seoulfultrip.seoulfultrip.GetSearchPlace
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -13,5 +14,5 @@ interface PlaceAPI {
         @Query("query") query: String,          //검색 전달
         @Query("display") display: Int? = null, //한 번에 표시할 검색 결과 개수(기본값: 1, 최댓값: 5)
         @Query("start") start: Int? = null      //검색 시작 위치(기본값: 1, 최댓값: 1)
-    ): Call<GetSearchPlace>
+    ): Call <GetSearchPlace>
 }
