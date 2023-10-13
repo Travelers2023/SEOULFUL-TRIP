@@ -4,61 +4,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="15dp"
-    android:orientation="horizontal"
-    android:paddingLeft="30dp"
-    android:paddingBottom="15dp"
-    android:paddingTop="15dp">
+    android:orientation="vertical"
+    android:paddingBottom="15dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/ItemBackCard"
-        android:layout_width="140dp"
-        android:layout_height="200dp"
-        app:cardCornerRadius="19dp"
-        app:cardElevation="0dp"
-        android:backgroundTint="#1A799EEA">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="25dp"
+            android:paddingRight="12dp"
+            android:paddingTop="15dp"
+            android:src="@drawable/ic_place" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/ItemImageCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="19dp">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/itemImageView"
-                android:layout_gravity="center"
-                android:layout_width="120dp"
-                android:layout_height="115dp"
-                android:src="@drawable/test"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/itemNameView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="경복궁"
-                android:textStyle="bold"
-                android:paddingTop="10dp"
-                android:textColor="#000000"
-                android:textSize="13dp" />
+                <TextView
+                    android:id="@+id/itemNameView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="경복궁"
+                    android:textStyle="bold"
+                    android:paddingTop="10dp"
+                    android:textColor="#000000"
+                    android:textSize="19dp" />
 
             <TextView
                 android:id="@+id/itemAddressView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="서울 종로구 사직로 161 경복궁"
                 android:paddingTop="3dp"
                 android:textColor="#8A8888"
-                android:textSize="8dp" />
+                android:textSize="12dp" />
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="25dp"
+        android:layout_height="1dp"
+        android:layout_gravity="center_vertical"
+        android:background="#33799EEA"/>
 
 </LinearLayout>
