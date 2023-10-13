@@ -10,7 +10,7 @@
 
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/white</item>
-        <item name="colorOnPrimary">#cccccc</item>
+        <item name="colorOnPrimary">@color/main_1</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#cccccc</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
