@@ -11,18 +11,31 @@ class MyApplication : MultiDexApplication() {
     companion object{
         lateinit var auth : FirebaseAuth
         var email : String? = null
-        var name : String? = null
         lateinit var db : FirebaseFirestore
+        fun name() : String? {
+            val currentUser = auth.currentUser
+            var name : String? = null
+            if (currentUser != null) {
+                val displayName = currentUser.displayName
+                if (!displayName.isNullOrBlank()) {
+                    name = displayName
+                } else {
+                    val parts = email.toString().split("@")
+                    if (parts?.size == 2) {
+                        name = parts[0]
+                    }
+                }
+            }
+            return name
+        }
         fun checkAuth() : Boolean{ // 인증이 되었는지 체크하는 함수
             var currentUser = auth.currentUser
             return currentUser?.let {
                 email = currentUser.email
-                name = currentUser.displayName
                 currentUser.isEmailVerified
             } ?: let{
                 false
             }
-
         }
     }
 
@@ -36,7 +49,7 @@ class MyApplication : MultiDexApplication() {
 
             userInfo.uid = auth.uid
             userInfo.userEmail = auth.currentUser?.email
-            userInfo.userName = auth.currentUser?.displayName
+            userInfo.userName = name()
 
             db.collection("users").document(auth.uid.toString())
                 .get()
