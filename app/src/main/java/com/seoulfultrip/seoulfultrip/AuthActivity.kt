@@ -11,6 +11,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.seoulfultrip.seoulfultrip.MyApplication.Companion.auth
+import com.seoulfultrip.seoulfultrip.MyApplication.Companion.name
 import com.seoulfultrip.seoulfultrip.databinding.ActivityAuthBinding
 
 class AuthActivity : AppCompatActivity() {
