@@ -46,14 +46,14 @@ class AuthActivity : AppCompatActivity() {
             //이메일,비밀번호 회원가입........................
             val email:String = binding.authEmailEditView.text.toString()
             val password:String = binding.authPasswordEditView.text.toString()
-            MyApplication.auth.createUserWithEmailAndPassword(email,password) // 회원 가입 firebase 연동
+            auth.createUserWithEmailAndPassword(email,password) // 회원 가입 firebase 연동
                 .addOnCompleteListener(this){ task ->
                     binding.authEmailEditView.text.clear() // user 입력 정보 지우기
                     binding.authPasswordEditView.text.clear()
                     binding.authConfirmPasswordEditView.text.clear()
                     if(task.isSuccessful){
                         // 이메일 2차 인증 작업
-                        MyApplication.auth.currentUser?.sendEmailVerification()
+                        auth.currentUser?.sendEmailVerification()
                             ?.addOnCompleteListener{ sendTask ->
                                 if(sendTask.isSuccessful){
                                     // Log.d("mobileApp", "회원가입 성공..이메일 확인")
