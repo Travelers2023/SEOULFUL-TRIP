@@ -15,6 +15,7 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.seoulfultrip.seoulfultrip.MyApplication.Companion.auth
 import com.seoulfultrip.seoulfultrip.MyApplication.Companion.name
 import com.seoulfultrip.seoulfultrip.databinding.ActivityAuthBinding
+import kotlin.math.log
 
 class AuthActivity : AppCompatActivity() {
     lateinit var binding: ActivityAuthBinding

@@ -22,12 +22,11 @@ class MyFragment : Fragment() {
         binding = FragmentMyBinding.inflate(inflater, container, false)
 
         if(MyApplication.checkAuth()){
-//            binding.username.text = "${}"
             binding.useremail.text = "${MyApplication.email}"
             binding.username.text = "${MyApplication.name()}"
             MyApplication.db.collection("users").document(MyApplication.auth.uid.toString())
                 .update(mapOf("userName" to "${MyApplication.name()}"))
-                .addOnSuccessListener { Log.d("SWProject-usermodel","${MyApplication.name()}")}
+                .addOnSuccessListener { Log.d("SWProject-username","${MyApplication.name()}")}
                 .addOnFailureListener { e ->
                     Log.d("SWProject-username","${e.message}")
                 }
