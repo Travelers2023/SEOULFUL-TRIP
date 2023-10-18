@@ -1,7 +1,9 @@
 package com.seoulfultrip.seoulfultrip
 
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
+import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.seoulfultrip.seoulfultrip.GetSearchPlace
@@ -48,7 +51,19 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
         binding.itemMemo.text=model.description //*화면에 표시안됨
         binding.itemRoad.text=model.roadAddress
 
+        binding.mapbutton.setOnClickListener {
 
+            var mapx = model.mapx
+            var mapy = model.mapy
+            var roadaddress = model.roadAddress
+            val intent = Intent(context, MapActivity::class.java)
+            intent.putExtra("mapx", mapx)
+            intent.putExtra("mapy", mapy)
+            intent.putExtra("roadaddress",roadaddress)
+            startActivity(context,intent,null)
+
+
+        }
     }
 
 }

@@ -83,6 +83,7 @@
                 android:textColor="#537CC5"/>
 
             <ImageButton
+                android:id="@+id/mapbutton"
                 android:layout_width="115dp"
                 android:layout_height="45dp"
                 android:background="@drawable/bluefullrectangle"
