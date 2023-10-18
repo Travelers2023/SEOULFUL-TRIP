@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -120,15 +121,17 @@ class SearchFragment : Fragment() {
         binding.btnSearch.setOnClickListener{
 
             var keyword = binding.edtProduct.text.toString()
-           val intent = Intent(getActivity(), SearchResultActivity::class.java)
-            intent.putExtra("keyword", keyword)
-            binding.edtProduct.text.clear()
-            startActivity(intent)
+            if(keyword.isNullOrBlank()){
+                Toast.makeText(this.context,"검색어를 입력해주세요", Toast.LENGTH_LONG).show()
+            } else {
+                val intent = Intent(getActivity(), SearchResultActivity::class.java)
+                intent.putExtra("keyword", keyword)
+                binding.edtProduct.text.clear()
+                startActivity(intent)
+            }
+
         }
-
         return binding.root
-
-
        // return inflater.inflate(R.layout.fragment_search, container, false)
     }
 

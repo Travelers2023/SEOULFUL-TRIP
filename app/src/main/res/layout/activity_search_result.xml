@@ -8,28 +8,32 @@
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:weightSum="10">
+        android:weightSum="10"
+        android:layout_margin="3dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_horizontal">
 
         <ImageButton
             android:id="@+id/backimg"
-            android:layout_width="30dp"
-            android:layout_height="50dp"
-            android:src="@drawable/back"
-            android:scaleType="fitCenter"
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:background="#00000000"
-
-            />
+            android:padding="2dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back" />
 
         <EditText
             android:id="@+id/edtProduct2"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginTop="0dp"
-            android:layout_marginLeft="5dp"
+            android:layout_weight="8"
             android:background="@drawable/searchrectangle"
             android:hint="지역/장소명을 입력해주세요."
             />
@@ -40,21 +44,24 @@
             android:layout_height="match_parent"
             android:src="@drawable/search_1"
             android:scaleType="fitCenter"
-            android:layout_marginLeft="10dp"
-            android:background="#00000000"/>
-
+            android:layout_marginLeft="3dp"
+            android:background="#00000000"
+            android:layout_weight="1"
+            android:padding="5dp"/>
 
     </LinearLayout>
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:layout_marginTop="70dp">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="검색결과"/>
+        android:text="검색 결과"/>
 
     <TextView
         android:id="@+id/num"
@@ -62,10 +69,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:text="0"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="2dp"
+        android:layout_marginLeft="3dp"
         android:text="건"/>
 </LinearLayout>
 
