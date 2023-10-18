@@ -99,5 +99,8 @@ dependencies {
     implementation("com.navercorp.nid:oauth-jdk8:5.8.0") // jdk 8
     implementation("com.naver.maps:map-sdk:3.17.0")
 
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+
 }
 
