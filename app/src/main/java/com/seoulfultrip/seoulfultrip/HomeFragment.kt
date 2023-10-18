@@ -19,8 +19,9 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(){
     lateinit var binding: FragmentHomeBinding
+    //private lateinit var bottomNavigationView: BottomNavigationView
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -37,12 +38,18 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-
-
     ): View? {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_home, container, false)
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        val mainActivity = activity as MainActivity
+
+        binding.homeTextbtn.setOnClickListener {
+            mainActivity.loadFragment(SearchFragment())
+            //bottomNavigationView.setOnClickListener { item -> }
+        }
+
         return binding.root
 
     }

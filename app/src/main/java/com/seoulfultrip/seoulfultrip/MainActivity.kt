@@ -6,6 +6,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.seoulfultrip.seoulfultrip.MyApplication.Companion.auth
+import com.seoulfultrip.seoulfultrip.MyApplication.Companion.db
 import com.seoulfultrip.seoulfultrip.databinding.ActivityMainBinding
 
 
@@ -34,12 +36,12 @@ class MainActivity : AppCompatActivity() {
                     }
                     R.id.nav3 -> {
                         loadFragment(SaveFragment())
-                        supportActionBar?.title = "Character"
+                        supportActionBar?.title = "Save"
                         updateIcons(item, R.drawable.star_1)
                     }
                     R.id.nav4 -> {
                         loadFragment(MyFragment())
-                        supportActionBar?.title = "Review"
+                        supportActionBar?.title = "My page"
                         updateIcons(item, R.drawable.my_1)
                     }
                 }
@@ -48,16 +50,15 @@ class MainActivity : AppCompatActivity() {
             // Set the default fragment to load when the activity is created
             loadFragment(HomeFragment())
             bottomNavigationView.selectedItemId = R.id.nav1
+
         }
         else {
             val intent = Intent(this, AuthActivity::class.java)
             startActivity(intent)
         }
-
-//        MyApplication.db.collection("users").document(auth.uid.toString())
-//            .get()
-//            .addOnSuccessListener {  }
-
+            db.collection("users").document(auth.uid.toString())
+                .get()
+                .addOnSuccessListener {  }
     }
     override fun onStart() {
         // Intent에서 finish() 돌아올 때 실행
@@ -85,13 +86,13 @@ class MainActivity : AppCompatActivity() {
 
                     R.id.nav3 -> {
                         loadFragment(SaveFragment())
-                        supportActionBar?.title = "Character"
+                        supportActionBar?.title = "Save"
                         updateIcons(item, R.drawable.star_1)
                     }
 
                     R.id.nav4 -> {
                         loadFragment(MyFragment())
-                        supportActionBar?.title = "Review"
+                        supportActionBar?.title = "My page"
                         updateIcons(item, R.drawable.my_1)
                     }
                 }

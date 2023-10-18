@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.seoulfultrip.seoulfultrip.databinding.ItemSaveBinding
 
 // 전부 레이아웃 테스트 작성용 firebase 연결하면 코드 수정해야 함
-
 class MySaveViewHolder(val binding: ItemSaveBinding) : RecyclerView.ViewHolder(binding.root) {
     //var idImageView = itemView.findViewById<ImageView>(R.id.itemImageView)
     var idNameView = itemView.findViewById<TextView>(R.id.itemNameView)

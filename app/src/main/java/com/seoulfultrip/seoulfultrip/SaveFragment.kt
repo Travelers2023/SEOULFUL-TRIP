@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.seoulfultrip.seoulfultrip.databinding.FragmentSaveBinding
 
 
@@ -53,14 +54,14 @@ class SaveFragment : Fragment() {
 
         val itemList = mutableListOf<savedata_test>()
 
-        for(num in 1..5){
+        for(num in 1..10){
             var name = "경복궁${num}"
             var address = "서울 종로구 사직로 161 경복궁${num}"
             var item = savedata_test(name, address)
             itemList.add(item)
         }
 
-        binding.saveRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.saveRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.saveRecyclerView.adapter = MySaveAdapter(requireContext(), itemList)
 
         return binding.root
