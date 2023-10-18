@@ -73,7 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="저장한 장소"
+                        android:text="저장한 경로"
                         android:textSize="18dp" />
 
                 </LinearLayout>
@@ -103,7 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="저장한 경로"
+                        android:text="저장한 장소"
                         android:textSize="18dp" />
 
                 </LinearLayout>
