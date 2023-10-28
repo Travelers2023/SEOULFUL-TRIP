@@ -1,6 +1,7 @@
 package com.seoulfultrip.seoulfultrip
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -11,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import com.seoulfultrip.seoulfultrip.databinding.FragmentSaveBinding
 
 
@@ -52,7 +56,8 @@ class SaveFragment : Fragment() {
 
         // firebase는 다르게 작성해야 함, 레이아웃을 보기 위해 작성한 코드 -> OnStart에 작성
 
-        val itemList = mutableListOf<savedata_test>()
+        //여기 필요없을 거 같아서 우선 주석처리 해놓았어
+        /*val itemList = mutableListOf<savedata_test>()
 
         for(num in 1..10){
             var name = "경복궁${num}"
@@ -62,9 +67,37 @@ class SaveFragment : Fragment() {
         }
 
         binding.saveRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.saveRecyclerView.adapter = MySaveAdapter(requireContext(), itemList)
+        binding.saveRecyclerView.adapter = MySaveAdapter(requireContext(), itemList)*/
 
         return binding.root
+    }
+
+    //파이어베이스에 있는 데이터 불러오기
+    override fun onStart() {
+        super.onStart()
+
+        //로그인유저만 받는 거 구현 안 함
+        val user = Firebase.auth.currentUser
+
+        MyApplication.db.collection("place")
+            //정렬 안 함
+            .get()
+            .addOnSuccessListener { result->
+                val itemList = mutableListOf<PlaceStorage>()
+                for(document in result){
+                    val item = document.toObject(PlaceStorage::class.java)
+                    item.docId = document.id
+                    itemList.add(item)
+                }
+                binding.saveRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+                binding.saveRecyclerView.adapter = MySaveAdapter(requireContext(), itemList)
+
+            }
+            .addOnFailureListener {
+                Log.d("데이터 불러오기", "실패")
+            }
+
+
     }
 
     override fun onResume() {

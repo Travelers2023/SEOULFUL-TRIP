@@ -4,6 +4,7 @@ import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
 import android.location.Geocoder
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,10 +12,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.play.integrity.internal.x
+import com.google.android.play.integrity.internal.y
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
 import com.seoulfultrip.seoulfultrip.GetSearchPlace
 import com.seoulfultrip.seoulfultrip.Items
 import com.seoulfultrip.seoulfultrip.PlaceAPI
@@ -40,8 +46,10 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
             = PlaceRetrofitViewHolder(PlaceRetrofitBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val binding=(holder as PlaceRetrofitViewHolder).binding
+        val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
         val model = datas!![position]
 
@@ -50,6 +58,38 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
         binding.itemType.text = model.category
         binding.itemMemo.text=model.description //*화면에 표시안됨
         binding.itemRoad.text=model.roadAddress
+
+
+        val geocoder = Geocoder(this.context)
+
+        val geocodeListener = Geocoder.GeocodeListener { addresses ->
+            val address = addresses.iterator()
+            val a = address.next()
+            val x = a.latitude
+            val y = a.longitude
+
+            //장소저장 눌렀을 때 파이어베이스에 저장
+            binding.placestorage.setOnClickListener {
+                val placeinf = mapOf(
+                    "email" to MyApplication.email,
+                    "latitude" to x,
+                    "longitude" to y,
+                    "pname" to model.title,
+                    "paddress" to model.roadAddress
+                )
+                db.collection("place")
+                    .add(placeinf)
+                    .addOnSuccessListener { documentReference->
+                        Log.d("store","firebase save : ${documentReference.id}")
+                    }
+                    .addOnFailureListener { e->
+                        Log.d("store","firebase save error", e)
+                    }
+            }
+
+
+        }
+        geocoder.getFromLocationName(model.roadAddress!!,1,geocodeListener)
 
         binding.mapbutton.setOnClickListener {
 
@@ -64,6 +104,8 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
 
 
         }
+
+
     }
 
 }
