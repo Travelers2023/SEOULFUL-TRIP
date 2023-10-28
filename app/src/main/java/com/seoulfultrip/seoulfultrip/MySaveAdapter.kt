@@ -13,14 +13,15 @@ class MySaveViewHolder(val binding: ItemSaveBinding) : RecyclerView.ViewHolder(b
     var idNameView = itemView.findViewById<TextView>(R.id.itemNameView)
     var idAddressView = itemView.findViewById<TextView>(R.id.itemAddressView)
 
-    fun setListData(listData: savedata_test) {
+    fun setListData(listData: PlaceStorage) {
         //idImageView.text = "@drawable/test"
-        idNameView.text = "${listData.name}"
-        idAddressView.text = listData.address
+        //To 강휘 /이름 주소 PlaceStorage에서 받아와서 수정함 확인하면 주석 지워주세용 -수정-
+        idNameView.text = "${listData.pname}"
+        idAddressView.text = "${listData.paddress}"
     }
 }
 
-class MySaveAdapter(val context: Context, val itemList: MutableList<savedata_test>): RecyclerView.Adapter<MySaveViewHolder>() {
+class MySaveAdapter(val context: Context, val itemList: MutableList<PlaceStorage>): RecyclerView.Adapter<MySaveViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MySaveViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
