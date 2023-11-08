@@ -8,17 +8,21 @@
     android:paddingBottom="15dp">
 
     <LinearLayout
+        android:id="@+id/itemSaveLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/itemImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="25dp"
             android:paddingRight="12dp"
             android:paddingTop="15dp"
+            android:visibility="gone"
             android:src="@drawable/ic_place" />
 
         <LinearLayout
@@ -30,7 +34,6 @@
                     android:id="@+id/itemNameView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="경복궁"
                     android:textStyle="bold"
                     android:paddingTop="10dp"
                     android:textColor="#000000"
@@ -41,7 +44,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="서울 종로구 사직로 161 경복궁"
                 android:paddingTop="3dp"
                 android:textColor="#8A8888"
                 android:textSize="12dp" />
@@ -51,10 +53,12 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/itemView"
         android:layout_width="match_parent"
         android:layout_marginTop="25dp"
         android:layout_height="1dp"
         android:layout_gravity="center_vertical"
+        android:visibility="gone"
         android:background="#33799EEA"/>
 
 </LinearLayout>
