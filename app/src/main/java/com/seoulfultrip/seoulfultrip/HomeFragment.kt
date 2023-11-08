@@ -3,9 +3,11 @@ package com.seoulfultrip.seoulfultrip
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.seoulfultrip.seoulfultrip.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -21,7 +23,7 @@ private const val ARG_PARAM2 = "param2"
 
 class HomeFragment : Fragment(){
     lateinit var binding: FragmentHomeBinding
-    //private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -47,13 +49,11 @@ class HomeFragment : Fragment(){
 
         binding.homeTextbtn.setOnClickListener {
             mainActivity.loadFragment(SearchFragment())
-            //bottomNavigationView.setOnClickListener { item -> }
         }
 
         return binding.root
 
     }
-
 
     companion object {
         /**
