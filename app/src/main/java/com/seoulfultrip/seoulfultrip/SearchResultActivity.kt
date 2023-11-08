@@ -60,11 +60,14 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
         binding.itemRoad.text=model.roadAddress
 
 
-        val geocoder = Geocoder(this.context)
+        val geocoder = Geocoder(context)
+
+
 
         val geocodeListener = Geocoder.GeocodeListener { addresses ->
             val address = addresses.iterator()
             val a = address.next()
+            Log.d("geocode","yy")
             val x = a.latitude
             val y = a.longitude
 
