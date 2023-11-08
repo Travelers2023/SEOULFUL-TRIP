@@ -1,6 +1,12 @@
 package com.seoulfultrip.seoulfultrip
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
@@ -8,7 +14,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,21 +63,6 @@ class SaveFragment : Fragment() {
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayShowTitleEnabled(false)
         setHasOptionsMenu(true)
 
-        // firebase는 다르게 작성해야 함, 레이아웃을 보기 위해 작성한 코드 -> OnStart에 작성
-
-        //여기 필요없을 거 같아서 우선 주석처리 해놓았어
-        /*val itemList = mutableListOf<savedata_test>()
-
-        for(num in 1..10){
-            var name = "경복궁${num}"
-            var address = "서울 종로구 사직로 161 경복궁${num}"
-            var item = savedata_test(name, address)
-            itemList.add(item)
-        }
-
-        binding.saveRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.saveRecyclerView.adapter = MySaveAdapter(requireContext(), itemList)*/
-
         return binding.root
     }
 
@@ -76,15 +70,15 @@ class SaveFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        //로그인유저만 받는 거 구현 안 함
-        val user = Firebase.auth.currentUser
+        //로그인유저만 받는 거 구현 안 함 -> adapter에 구현
+//        val user = Firebase.auth.currentUser
 
         MyApplication.db.collection("place")
             //정렬 안 함
             .get()
-            .addOnSuccessListener { result->
+            .addOnSuccessListener { result ->
                 val itemList = mutableListOf<PlaceStorage>()
-                for(document in result){
+                for (document in result) {
                     val item = document.toObject(PlaceStorage::class.java)
                     item.docId = document.id
                     itemList.add(item)
@@ -96,7 +90,6 @@ class SaveFragment : Fragment() {
             .addOnFailureListener {
                 Log.d("데이터 불러오기", "실패")
             }
-
 
     }
 
