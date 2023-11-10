@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/authMainTextView_Welcom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:text="Welcom to"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/authMainTextView_Seoulful"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/authMainTextView_Welcom"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:text="SEOULFUL TRIP"
+        android:textColor="#799EEA"
+        android:textStyle="bold"/>
+
+</RelativeLayout>
