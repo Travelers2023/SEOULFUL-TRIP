@@ -40,4 +40,8 @@
         parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/custom_bs</item>
     </style>
+    
+    <style name="SplashActivityTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+<!--        <item name="android:windowBackground"></item>-->
+    </style>
 </resources>

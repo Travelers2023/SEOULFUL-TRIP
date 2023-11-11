@@ -3,9 +3,11 @@ package com.seoulfultrip.seoulfultrip
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.seoulfultrip.seoulfultrip.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -52,7 +54,6 @@ class HomeFragment : Fragment(){
         return binding.root
 
     }
-
 
     companion object {
         /**

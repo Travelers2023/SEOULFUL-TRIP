@@ -48,15 +48,51 @@
             android:background="#00000000"/>
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/bu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_bar"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/nowmapbutton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="현재 위치 보기"
+            android:textColor="@color/black"
+            android:gravity="left"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/targetsize"
+            />
 
+        <Button
+            android:id="@+id/nowmapbutton2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="현재 위치 확인하기"
+            android:textColor="@color/black"
+            android:gravity="left"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/targetsize"
+            />
 
+    </LinearLayout>
+
+<!--
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
         android:layout_below="@id/top_bar"
-        android:name="com.naver.maps.map.MapFragment" />
-
+        android:name="com.naver.maps.map.MapFragment" />-->
+    <LinearLayout
+        android:id="@+id/map_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/bu"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

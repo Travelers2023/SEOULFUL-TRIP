@@ -1,16 +1,31 @@
 package com.seoulfultrip.seoulfultrip
 
+import android.Manifest
+import android.annotation.TargetApi
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.compose.ui.input.key.Key.Companion.F
+import androidx.constraintlayout.motion.widget.Debug.getLocation
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
+import com.google.android.play.integrity.internal.x
 import com.seoulfultrip.seoulfultrip.GetSearchPlace
 import com.seoulfultrip.seoulfultrip.Items
 import com.seoulfultrip.seoulfultrip.PlaceAPI
@@ -38,6 +53,13 @@ class SearchFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val REQUEST_LOCATION = 1
+
+    @TargetApi(Build.VERSION_CODES.P)
+    private val PERMISSIONS = arrayOf(
+        android.Manifest.permission.ACCESS_FINE_LOCATION,
+        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,8 +91,101 @@ class SearchFragment : Fragment() {
             }
 
         }
+
+        //맵 activity연결 버튼
+        binding.nowmapbutton.setOnClickListener{
+            val intent = Intent(getActivity(), NowMapActivity::class.java)
+            startActivity(intent)
+        }
+
+        //map fragment 연결 버튼
+        binding.nowmapbutton2.setOnClickListener {
+            getLocation()
+            binding.mapFragment.visibility=View.VISIBLE
+
+            /*
+            val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
+            val fragment = MapFragment()
+            transaction.add(R.id.map_fragment, fragment)
+            transaction.commit()*/
+
+
+        }
+
+
         return binding.root
     }
+
+    override fun onStart() {
+        super.onStart()
+        requestLocation()
+    }
+
+    fun requestLocation(){
+        if(ContextCompat.checkSelfPermission(
+                requireContext(),
+                PERMISSIONS[0]
+            )!= PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+                requireContext(),
+                PERMISSIONS[1]
+            )!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(
+                context as Activity,
+                PERMISSIONS,
+                REQUEST_LOCATION
+            )
+        }
+    }
+
+    private fun getLocation(){
+        val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        //현재 위치 위도/경도로 받아오기
+        fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY,null).addOnSuccessListener { success: Location ->
+            success?.let {
+                    location ->
+                Log.d("현재 위치","${location.latitude}")
+                val x = location.latitude
+                Log.d("현재 위치","${location.longitude}")
+                val y = location.longitude
+
+
+                val bundle = Bundle()
+                bundle.putDouble("latitude",x)
+                bundle.putDouble("longitude",y)
+
+                val fragmentmap = MapFragment()
+                fragmentmap.arguments = bundle
+                val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
+                transaction.add(R.id.map_fragment, fragmentmap)
+                transaction.commit()
+
+            }
+        }
+
+            .addOnFailureListener { fail->
+                Log.d("현재 위치","${fail.localizedMessage}")
+            }
+
+    }
+
+
 
     companion object {
         /**
@@ -82,7 +197,7 @@ class SearchFragment : Fragment() {
          * @return A new instance of fragment SearchFragment.
          */
         // TODO: Rename and change types and number of parameters
-        @JvmStatic
+       @JvmStatic
         fun newInstance(param1: String, param2: String) =
             SearchFragment().apply {
                 arguments = Bundle().apply {

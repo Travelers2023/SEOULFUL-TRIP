@@ -3,11 +3,16 @@ package com.seoulfultrip.seoulfultrip
 import android.content.Context
 import android.content.Intent
 import android.location.Geocoder
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
@@ -47,23 +52,44 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
         binding.itemMemo.text=model.description //*화면에 표시안됨
         binding.itemRoad.text=model.roadAddress
 
-        //val URL:String = "https://map.naver.com/p/entry/place/11591538?c=15.00,0,0,0,dh"
+        //저장된 장소는 saveBtn_1로 표시
+        val placeName = model.title
+        val placeRef = db.collection("place").whereEqualTo("pname", placeName)
 
-        /*holder.itemView.setOnClickListener(View.OnClickListener() {
+        placeRef.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                if (!task.result.isEmpty) {
+                    // 동일한 장소가 이미 존재하는 경우
+                    binding.saveBtn.visibility = View.GONE
+                    binding.saveBtn1.visibility = View.VISIBLE
+                } else {
+                    // 동일한 장소가 존재하지 않는 경우
+                    binding.saveBtn.visibility = View.VISIBLE
+                    binding.saveBtn1.visibility = View.GONE
+                }
+            } else {
+                Log.d("Firestore", "Error getting documents: ", task.exception)
+            }
+        }
 
-        })*/
 
 
-        val geocoder = Geocoder(this.context)
+        val geocoder = Geocoder(context)
+
 
         val geocodeListener = Geocoder.GeocodeListener { addresses ->
             val address = addresses.iterator()
             val a = address.next()
+            Log.d("geocode","yy")
             val x = a.latitude
             val y = a.longitude
 
             //장소저장 눌렀을 때 파이어베이스에 저장
-            binding.placestorage.setOnClickListener {
+            // saveBtn 버튼 클릭 이벤트
+            binding.placestorage.setOnClickListener{
+                Log.d("SW","버튼 눌림")
+                binding.saveBtn.visibility = View.GONE
+                binding.saveBtn1.visibility = View.VISIBLE
                 val placeinf = mapOf(
                     "email" to MyApplication.email,
                     "latitude" to x,
@@ -73,13 +99,49 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
                 )
                 db.collection("place")
                     .add(placeinf)
-                    .addOnSuccessListener { documentReference->
-                        Log.d("store","firebase save : ${documentReference.id}")
+                    .addOnSuccessListener { documentReference ->
+                        Log.d("store", "firebase save : ${documentReference.id}")
+                        Toast.makeText(context,"장소 저장 완료",Toast.LENGTH_SHORT).show()
+
                     }
-                    .addOnFailureListener { e->
-                        Log.d("store","firebase save error", e)
+                    .addOnFailureListener { e ->
+                        Log.d("store", "firebase save error", e)
                     }
             }
+
+// saveBtn1 버튼 클릭 이벤트
+            binding.placestorage2.setOnClickListener {
+                Log.d("SW","버튼 눌림")
+                // saveBtn1을 숨기고 saveBtn을 표시
+                binding.saveBtn.visibility = View.VISIBLE
+                binding.saveBtn1.visibility = View.GONE
+
+                // 해당 장소를 Firestore에서 삭제하는 코드 추가
+                val placeName = model.title
+                val placeRef = db.collection("place").whereEqualTo("pname", placeName)
+
+                placeRef.get().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        for (document in task.result) {
+                            // Firestore에서 해당 장소 삭제
+                            db.collection("place").document(document.id)
+                                .delete()
+                                .addOnSuccessListener {
+                                    Log.d("Firestore", "DocumentSnapshot successfully deleted.")
+                                    Toast.makeText(context,"장소 삭제 완료",Toast.LENGTH_SHORT).show()
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.w("Firestore", "삭제 실패", e)
+                                }
+                        }
+                    } else {
+                        Log.d("Firestore", "삭제 에러 :", task.exception)
+                    }
+                }
+
+            }
+
+
 
 
         }
