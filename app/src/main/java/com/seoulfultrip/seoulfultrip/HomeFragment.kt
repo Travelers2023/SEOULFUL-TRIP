@@ -21,6 +21,7 @@ private const val ARG_PARAM2 = "param2"
 
 class HomeFragment : Fragment(){
     lateinit var binding: FragmentHomeBinding
+    //val mainActivity = activity as MainActivity
     //private lateinit var bottomNavigationView: BottomNavigationView
 
     // TODO: Rename and change types of parameters
@@ -29,11 +30,25 @@ class HomeFragment : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //setHasOptionsMenu(true)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
     }
+
+    /*private fun setOnClickListener() {
+        binding.homeTextbtn.setOnClickListener {
+            mainActivity.loadFragment(SearchFragment())
+        }
+    }*/
+
+    /*override fun onClick(p0: View?) {
+        when (p0?.id) {
+            R.id.nav1 -> {item.setIcon(R.drawable.search_1)}
+        }
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,17 +57,46 @@ class HomeFragment : Fragment(){
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_home, container, false)
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        //bottomNavigationView = requireView().findViewById(R.id.bottomNavigationView)
 
         val mainActivity = activity as MainActivity
+        //val item = bottomNavigationView.menu
 
         binding.homeTextbtn.setOnClickListener {
             mainActivity.loadFragment(SearchFragment())
-            //bottomNavigationView.setOnClickListener { item -> }
+            //setOnClickListener()
+            //SearchIcon(item)
+            //mainActivity.hideBottomNavigation(true)
         }
 
         return binding.root
 
     }
+
+
+
+    /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        inflater.inflate(R.menu.bottom_nav, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        //val id = item.itemId
+        /*when (item.itemId) {
+            //item.itemId -> R.drawable.search
+            R.id.nav1 -> item.setIcon(R.drawable.search_1)
+        }*/
+        if (item.itemId == R.id.home_textbtn) {
+            item.setIcon(R.drawable.search_1)
+            bottomNavigationView.menu.findItem(R.id.nav1).setIcon(R.drawable.home)
+            bottomNavigationView.menu.findItem(R.id.nav3).setIcon(R.drawable.star)
+            bottomNavigationView.menu.findItem(R.id.nav4).setIcon(R.drawable.my)
+        }
+
+
+        return super.onOptionsItemSelected(item)
+    }*/
 
 
     companion object {

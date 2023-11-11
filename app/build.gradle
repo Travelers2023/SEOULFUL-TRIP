@@ -75,6 +75,9 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
+    //jsoup
+    implementation 'org.jsoup:jsoup:1.13.1'
+
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:32.0.0')
     implementation 'com.squareup.retrofit2:retrofit:2.0.0'

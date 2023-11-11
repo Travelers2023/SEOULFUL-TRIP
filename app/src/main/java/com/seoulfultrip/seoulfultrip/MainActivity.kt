@@ -132,6 +132,11 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+    /*public fun hideBottomNavigation(state:Boolean) {
+        if (state) binding.bottomNavigationView.visibility = View.GONE
+        else binding.bottomNavigationView.visibility = View.VISIBLE
+    }*/
+
 }
 
 
