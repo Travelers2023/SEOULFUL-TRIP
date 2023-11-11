@@ -23,7 +23,6 @@ private const val ARG_PARAM2 = "param2"
 
 class HomeFragment : Fragment(){
     lateinit var binding: FragmentHomeBinding
-    private lateinit var bottomNavigationView: BottomNavigationView
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -31,6 +30,7 @@ class HomeFragment : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)

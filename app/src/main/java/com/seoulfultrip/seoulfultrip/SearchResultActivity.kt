@@ -1,12 +1,10 @@
 package com.seoulfultrip.seoulfultrip
 
-import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
 import android.location.Geocoder
 import android.opengl.Visibility
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,19 +14,11 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.play.integrity.internal.x
-import com.google.android.play.integrity.internal.y
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.GeoPoint
-import com.seoulfultrip.seoulfultrip.GetSearchPlace
-import com.seoulfultrip.seoulfultrip.Items
-import com.seoulfultrip.seoulfultrip.PlaceAPI
-import com.seoulfultrip.seoulfultrip.R
-import com.seoulfultrip.seoulfultrip.databinding.ActivityMainBinding
 import com.seoulfultrip.seoulfultrip.databinding.ActivitySearchResultBinding
 import com.seoulfultrip.seoulfultrip.databinding.PlaceRetrofitBinding
 import retrofit2.Call
@@ -85,7 +75,6 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
 
 
         val geocoder = Geocoder(context)
-
 
 
         val geocodeListener = Geocoder.GeocodeListener { addresses ->
@@ -171,6 +160,7 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
 
 
         }
+
 
 
     }
@@ -264,6 +254,17 @@ class SearchResultActivity : AppCompatActivity()  {
                 .replace(R.id, searchhomefragment)
                 .commit()*/
         }
+
+        /*Thread() {
+            @Override
+            fun run() {
+                runOnUiThread(Runnable() {
+                    fun run() {
+
+                    }
+                })
+            }
+        }*/
 
 
     }
