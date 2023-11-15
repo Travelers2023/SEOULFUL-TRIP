@@ -6,20 +6,19 @@
     android:layout_gravity="center_vertical"
     android:padding="20dp">
 
-    <TextView
-        android:id="@+id/authMainTextView_Welcom"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/icon_car"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="25dp"
-        android:text="Welcom to"
+        android:src="@drawable/icon_car"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 
     <TextView
         android:id="@+id/authMainTextView_Seoulful"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/authMainTextView_Welcom"
+        android:layout_below="@id/icon_car"
         android:gravity="center"
         android:textSize="25dp"
         android:text="SEOULFUL TRIP"
