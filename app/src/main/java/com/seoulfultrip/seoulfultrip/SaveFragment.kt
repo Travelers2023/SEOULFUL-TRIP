@@ -106,7 +106,8 @@ class SaveFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.select_button -> {
-                // 선택 버튼 구현 예정
+                val intent: Intent = Intent(context, SelectActivity::class.java)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)

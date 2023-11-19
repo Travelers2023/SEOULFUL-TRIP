@@ -27,10 +27,12 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 class PlaceRetrofitViewHolder(val binding: PlaceRetrofitBinding): RecyclerView.ViewHolder(binding.root)
 
 class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+//    companion object {
+//        lateinit var model : Items
+//    }
 
     override fun getItemCount(): Int {
         return datas?.size?: 0
@@ -55,6 +57,8 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
         //저장된 장소는 saveBtn_1로 표시
         val placeName = model.title
         val placeRef = db.collection("place").whereEqualTo("pname", placeName)
+
+        // 로그인한 아이디에서 동일한 장소가 저장되어있는지 확인해야 할 듯 -> 내가 이해한 코드가 아닐까봐 고치지는 않음
 
         placeRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {

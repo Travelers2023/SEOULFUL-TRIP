@@ -3,14 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="15dp"
-    android:orientation="vertical"
-    android:paddingBottom="15dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/itemSaveLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:paddingTop="10dp"
         android:visibility="gone"
         android:orientation="horizontal">
@@ -30,14 +28,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/itemNameView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:paddingTop="10dp"
-                    android:textColor="#000000"
-                    android:textSize="19dp" />
+            <TextView
+                android:id="@+id/itemNameView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:paddingTop="10dp"
+                android:textColor="#000000"
+                android:textSize="19dp" />
 
             <TextView
                 android:id="@+id/itemAddressView"
@@ -55,7 +53,6 @@
     <View
         android:id="@+id/itemView"
         android:layout_width="match_parent"
-        android:layout_marginTop="25dp"
         android:layout_height="1dp"
         android:layout_gravity="center_vertical"
         android:visibility="gone"
