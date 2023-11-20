@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
     public fun updateIcons(selectedItem: MenuItem, selectedIconRes: Int) {
         selectedItem.setIcon(selectedIconRes)
-        val menu = bottomNavigationView.menu
+        val menu = binding.bottomNavigationView.menu
         for (i in 0 until menu.size()) {
             val item = menu.getItem(i)
             if (item != selectedItem) {
@@ -122,4 +122,9 @@ class MainActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
+    fun getBottomNavigationView(): BottomNavigationView {
+        return bottomNavigationView
+    }
+
 }

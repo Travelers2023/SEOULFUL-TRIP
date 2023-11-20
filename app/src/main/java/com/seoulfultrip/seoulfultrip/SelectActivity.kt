@@ -1,5 +1,6 @@
 package com.seoulfultrip.seoulfultrip
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -61,6 +62,8 @@ class SelectActivity : AppCompatActivity() {
 
             R.id.next1_button -> {
                 // 다음 구현
+                val intent = Intent(this, PathActivity::class.java)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)
