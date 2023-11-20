@@ -36,6 +36,8 @@ class StartplaceActivity : AppCompatActivity() {
         Log.d("장소이름", "${pname}")
 
 
+        // 출발지 선택을 위하여 배열 넘겨받기 구현 예정
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean { // Menu 연걸
@@ -51,10 +53,8 @@ class StartplaceActivity : AppCompatActivity() {
             }
 
             R.id.next2_button -> {
-
                 val intent = Intent(this, PathActivity::class.java)
                 startActivity(intent)
-
             }
         }
         return super.onOptionsItemSelected(item)
