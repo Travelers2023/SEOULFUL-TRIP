@@ -1,21 +1,21 @@
 package com.seoulfultrip.seoulfultrip
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.seoulfultrip.seoulfultrip.MyApplication.Companion.db
 import com.seoulfultrip.seoulfultrip.databinding.ActivitySelectBinding
 
 class SelectActivity : AppCompatActivity() {
     lateinit var binding: ActivitySelectBinding
     val itemList = mutableListOf<PlaceStorage>()
-    lateinit var adapter: MySelectAdapter
+    //lateinit var adapter : MySelectAdapter
+    private val adapter = MySelectAdapter(this, itemList)
+    var a = arrayOf<String?>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySelectBinding.inflate(layoutInflater)
@@ -41,6 +41,8 @@ class SelectActivity : AppCompatActivity() {
             .addOnFailureListener {
                 Log.d("데이터 불러오기", "실패")
             }
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean { // Menu 연걸
@@ -60,7 +62,16 @@ class SelectActivity : AppCompatActivity() {
             }
 
             R.id.next1_button -> {
-                // 다음 구현
+
+                val iterator = adapter.savepname.iterator()
+                while (iterator.hasNext()){
+                    a.plus(iterator.next())
+                }
+
+                val intent = Intent(this,StartplaceActivity::class.java )
+                intent.putExtra("a",a)
+                startActivity(intent)
+
             }
         }
         return super.onOptionsItemSelected(item)
