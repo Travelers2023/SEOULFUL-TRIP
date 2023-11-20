@@ -15,6 +15,7 @@ import kotlin.math.log
 
 class StartplaceActivity : AppCompatActivity() {
     val itemList = mutableListOf<PlaceStorage>()
+    private lateinit var adapter: MySaveAdapter
     var pname: Array<out String>?= arrayOf("")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +27,9 @@ class StartplaceActivity : AppCompatActivity() {
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
         binding.saveRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.saveRecyclerView.adapter = MySaveAdapter(this, itemList)
+//        binding.saveRecyclerView.adapter = MySaveAdapter(this, itemList)
+        adapter = MySaveAdapter(this, itemList)
+        binding.saveRecyclerView.adapter = adapter
 
         //intent.getParcelableArrayListExtra()
         pname = intent.getStringArrayExtra("a")
@@ -49,7 +52,6 @@ class StartplaceActivity : AppCompatActivity() {
 
             R.id.next2_button -> {
 
-                // 다음 구현
                 val intent = Intent(this, PathActivity::class.java)
                 startActivity(intent)
 

@@ -12,4 +12,5 @@ data class PlaceStorage(
     var selected: Boolean = false, // 선택됐는지 표시
     var start: Boolean = false // 출발지인지 표시
 
+
 )
