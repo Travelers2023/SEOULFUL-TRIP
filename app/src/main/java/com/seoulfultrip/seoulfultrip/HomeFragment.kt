@@ -49,7 +49,9 @@ class HomeFragment : Fragment(){
 
         binding.homeTextbtn.setOnClickListener {
             mainActivity.loadFragment(SearchFragment())
+            mainActivity.updateIcons(mainActivity.getBottomNavigationView().menu.findItem(R.id.nav2), R.drawable.search_1)
         }
+
 
         return binding.root
 

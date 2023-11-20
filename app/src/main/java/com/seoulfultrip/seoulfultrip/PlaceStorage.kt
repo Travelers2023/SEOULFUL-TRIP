@@ -11,4 +11,5 @@ data class PlaceStorage(
     var pname: String? = null,
     var start: Boolean = false // 출발지인지 표시
 
+
 )

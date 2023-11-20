@@ -73,7 +73,6 @@ class SelectActivity : AppCompatActivity() {
             R.id.next1_button -> {
                 val intent = Intent(this,StartplaceActivity::class.java )
                 startActivity(intent)
-
             }
 
         }
