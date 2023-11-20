@@ -62,7 +62,6 @@ class SelectActivity : AppCompatActivity() {
             }
 
             R.id.next1_button -> {
-
                 val iterator = adapter.savepname.iterator()
                 while (iterator.hasNext()){
                     a.plus(iterator.next())
@@ -71,7 +70,6 @@ class SelectActivity : AppCompatActivity() {
                 val intent = Intent(this,StartplaceActivity::class.java )
                 intent.putExtra("a",a)
                 startActivity(intent)
-
             }
         }
         return super.onOptionsItemSelected(item)
