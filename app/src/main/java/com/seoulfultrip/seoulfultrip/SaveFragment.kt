@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
@@ -39,6 +40,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class SaveFragment : Fragment() {
     lateinit var binding: FragmentSaveBinding
+    var itemList = mutableListOf<PlaceStorage>()
+    var adapter: MySaveAdapter? = null
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -70,14 +73,11 @@ class SaveFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        //로그인유저만 받는 거 구현 안 함 -> adapter에 구현
-//        val user = Firebase.auth.currentUser
-
         MyApplication.db.collection("place")
             //정렬 안 함
             .get()
             .addOnSuccessListener { result ->
-                val itemList = mutableListOf<PlaceStorage>()
+                itemList = mutableListOf<PlaceStorage>()
                 for (document in result) {
                     val item = document.toObject(PlaceStorage::class.java)
                     item.docId = document.id
@@ -111,6 +111,29 @@ class SaveFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun refreshAdapter() {
+        MyApplication.db.collection("place")
+            //정렬 안 함
+            .get()
+            .addOnSuccessListener { result ->
+                itemList = mutableListOf<PlaceStorage>()
+                for (document in result) {
+                    val item = document.toObject(PlaceStorage::class.java)
+                    item.docId = document.id
+                    itemList.add(item)
+                }
+                binding.saveRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+                binding.saveRecyclerView.adapter = MySaveAdapter(requireContext(), itemList)
+
+            }
+            .addOnFailureListener {
+                Log.d("데이터 불러오기", "실패")
+            }
+
+        MySaveAdapter(requireContext(), itemList)
+        adapter?.notifyDataSetChanged()
     }
 
     companion object {

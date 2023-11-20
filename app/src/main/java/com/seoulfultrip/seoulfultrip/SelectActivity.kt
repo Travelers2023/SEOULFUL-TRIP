@@ -1,13 +1,18 @@
 package com.seoulfultrip.seoulfultrip
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.seoulfultrip.seoulfultrip.MyApplication.Companion.db
+import com.seoulfultrip.seoulfultrip.MySelectAdapter.Companion.savepname
 import com.seoulfultrip.seoulfultrip.databinding.ActivitySelectBinding
 
 class SelectActivity : AppCompatActivity() {
@@ -15,7 +20,6 @@ class SelectActivity : AppCompatActivity() {
     val itemList = mutableListOf<PlaceStorage>()
     //lateinit var adapter : MySelectAdapter
     private val adapter = MySelectAdapter(this, itemList)
-    var a = arrayOf<String?>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySelectBinding.inflate(layoutInflater)
@@ -42,7 +46,11 @@ class SelectActivity : AppCompatActivity() {
                 Log.d("데이터 불러오기", "실패")
             }
 
+    }
 
+    override fun onRestart() {
+        super.onRestart()
+        SaveFragment().refreshAdapter()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean { // Menu 연걸
@@ -59,27 +67,21 @@ class SelectActivity : AppCompatActivity() {
 
             R.id.delete_button -> { // 삭제 구현
                 deleteItem()
+                finish()
             }
 
             R.id.next1_button -> {
-
-                val iterator = adapter.savepname.iterator()
-                while (iterator.hasNext()){
-                    a.plus(iterator.next())
-                }
-
                 val intent = Intent(this,StartplaceActivity::class.java )
-                intent.putExtra("a",a)
                 startActivity(intent)
 
             }
+
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun deleteItem() {
         // 해당 장소를 Firestore에서 삭제하는 코드 추가
-        /*
         val user = Firebase.auth.currentUser
         if (user != null) {
             // User is signed in
@@ -88,9 +90,9 @@ class SelectActivity : AppCompatActivity() {
         }
 
         var placeName : String?
-        for (index in 0 .. deleteItems.size) {
+        for (index in 0 .. savepname.size - 1) {
 
-            placeName = deleteItems[index].pname
+            placeName = savepname[index]
 
             val placeRef = db.collection("place").whereEqualTo("pname", placeName)
 
@@ -103,6 +105,7 @@ class SelectActivity : AppCompatActivity() {
                             .addOnSuccessListener {
                                 Toast.makeText(this@SelectActivity,"장소 삭제 완료",Toast.LENGTH_SHORT).show()
                                 Log.d("Firestore", "DocumentSnapshot successfully deleted.")
+//                                MainActivity().loadFragment(SaveFragment())
                             }
                             .addOnFailureListener { e ->
                                 Log.w("Firestore", "삭제 실패", e)
@@ -115,9 +118,7 @@ class SelectActivity : AppCompatActivity() {
             }
 
         }
-        // 적용
-        adapter.notifyDataSetChanged()
-        */
+
     }
 
 
