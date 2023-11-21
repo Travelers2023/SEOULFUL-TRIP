@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".SaveFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,14 +16,16 @@ tools:context=".SaveFragment">
             android:outlineSpotShadowColor="#799EEA"
             android:layout_width="match_parent"
             android:layout_height="60dp" >
-            <!-- 툴바 테두리 의논 -->
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/Selecttoolbar"
                 style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                app:menu="@menu/menu_saveselect" />
+                app:menu="@menu/menu_delete" >
+
+            </androidx.appcompat.widget.Toolbar>
+
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -32,7 +34,5 @@ tools:context=".SaveFragment">
             android:layout_height="match_parent"/>
 
     </LinearLayout>
-
-
 
 </RelativeLayout>
