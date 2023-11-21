@@ -10,27 +10,28 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.seoulfultrip.seoulfultrip.MySelectAdapter.Companion.savepname
 import com.seoulfultrip.seoulfultrip.databinding.ItemSaveBinding
 
-class MySelectViewHolder(val binding: ItemSaveBinding) : RecyclerView.ViewHolder(binding.root) {
+class StartplaceViewHolder(val binding: ItemSaveBinding) : RecyclerView.ViewHolder(binding.root) {
 }
 
-class MySelectAdapter(val context: Context, val itemList: MutableList<PlaceStorage>): RecyclerView.Adapter<MySelectViewHolder>() {
-    companion object {
-        val savepname = mutableListOf<String?>()
-    }
+class StartplaceAdapter(val context: Context, val itemList: MutableList<PlaceStorage>): RecyclerView.Adapter<StartplaceViewHolder>() {
+//    companion object {
+//        val startPlace: String? = null
+//    }
 
     val selectItem = SparseBooleanArray(0)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MySelectViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StartplaceViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return MySelectViewHolder(ItemSaveBinding.inflate(layoutInflater))
+        return StartplaceViewHolder(ItemSaveBinding.inflate(layoutInflater))
     }
 
     override fun getItemCount(): Int {
         return itemList.size
     }
 
-    override fun onBindViewHolder(holder: MySelectViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: StartplaceViewHolder, position: Int) {
         val data = itemList.get(position)
         val user = Firebase.auth.currentUser
 
@@ -40,13 +41,17 @@ class MySelectAdapter(val context: Context, val itemList: MutableList<PlaceStora
             // No user is signed in
         }
 
-        holder.binding.run {
-            if (user?.email == data.email) {
-                itemSaveLayout.visibility = View.VISIBLE
-                itemImageView.visibility = View.VISIBLE
-                itemView.visibility = View.VISIBLE
-                itemNameView.text = "${data.pname}"
-                itemAddressView.text = "${data.paddress}"
+        // 여기 부분 다시 구현.. 받아온 배열의 이름과 같은 장소를 띄우기
+        for(index in 0 .. savepname.size - 1) {
+            if(savepname[index] == data.pname)
+            holder.binding.run {
+                if (user?.email == data.email) {
+                    itemSaveLayout.visibility = View.VISIBLE
+                    itemImageView.visibility = View.VISIBLE
+                    itemView.visibility = View.VISIBLE
+                    itemNameView.text = "${data.pname}"
+                    itemAddressView.text = "${data.paddress}"
+                }
             }
         }
 

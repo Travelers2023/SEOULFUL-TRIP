@@ -25,6 +25,7 @@
 
         <activity
             android:name=".StartplaceActivity"
+            android:parentActivityName=".SelectActivity"
             android:exported="false" />
         <activity
             android:name=".NowMapActivity"

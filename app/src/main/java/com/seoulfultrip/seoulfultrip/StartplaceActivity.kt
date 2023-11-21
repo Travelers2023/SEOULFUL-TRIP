@@ -10,31 +10,52 @@ import android.view.MenuItem
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.seoulfultrip.seoulfultrip.MyApplication.Companion.db
+import com.seoulfultrip.seoulfultrip.databinding.ActivitySelectBinding
 import com.seoulfultrip.seoulfultrip.databinding.ActivityStartplaceBinding
 import kotlin.math.log
 
 class StartplaceActivity : AppCompatActivity() {
+    lateinit var binding: ActivityStartplaceBinding
     val itemList = mutableListOf<PlaceStorage>()
-    private lateinit var adapter: MySaveAdapter
-    var pname: Array<out String>?= arrayOf("")
+//    private lateinit var adapter: StartplaceAdapter
+//    var pname: Array<out String>?= arrayOf("")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityStartplaceBinding.inflate(layoutInflater)
+        binding = ActivityStartplaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.Nexttoolbar) // toolbar 사용 선언
         getSupportActionBar()?.setTitle("출발지 설정하기")
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
-        binding.saveRecyclerView.layoutManager = LinearLayoutManager(this)
-//        binding.saveRecyclerView.adapter = MySaveAdapter(this, itemList)
-        adapter = MySaveAdapter(this, itemList)
-        binding.saveRecyclerView.adapter = adapter
+        db.collection("place")
+            //정렬 안 함
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val item = document.toObject(PlaceStorage::class.java)
+                    item.docId = document.id
+                    itemList.add(item)
+                }
+                binding.saveRecyclerView.layoutManager = LinearLayoutManager(this)
+                binding.saveRecyclerView.adapter = StartplaceAdapter(this, itemList)
+
+            }
+            .addOnFailureListener {
+                Log.d("데이터 불러오기", "실패")
+            }
+
+//        adapter = MySaveAdapter(this, itemList)
+//        binding.saveRecyclerView.adapter = adapter
 
         //intent.getParcelableArrayListExtra()
-        pname = intent.getStringArrayExtra("a")
-        Log.d("장소이름", "${pname}")
+//        pname = intent.getStringArrayExtra("a")
+//        Log.d("장소이름", "${pname}")
 
+
+        // 출발지 선택을 위하여 배열 넘겨받기 구현 예정
 
     }
 
@@ -46,15 +67,9 @@ class StartplaceActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> { // 뒤로가기 버튼
-                finish()
-            }
-
             R.id.next2_button -> {
-
                 val intent = Intent(this, PathActivity::class.java)
                 startActivity(intent)
-
             }
         }
         return super.onOptionsItemSelected(item)
