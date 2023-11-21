@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.play.core.integrity.p
 import com.naver.maps.geometry.LatLng
+import com.seoulfultrip.seoulfultrip.StartplaceAdapter.Companion.savestname
 import com.seoulfultrip.seoulfultrip.databinding.ActivityPathBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class PathActivity : AppCompatActivity() {
     lateinit var binding: ActivityPathBinding
+    val startPlace:String? = savestname[0] // 출발지 이름
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPathBinding.inflate(layoutInflater)
@@ -84,10 +86,6 @@ class PathActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> { // 뒤로가기 버튼
-                finish()
-            }
-
             R.id.next1_button -> {
                 // 다음 구현
             }
