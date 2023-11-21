@@ -18,6 +18,7 @@ class MyHomeAdapter(val context: Context, val itemList: List<HomePath>, private 
             cardView.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
+                    // 데이터 리스트로부터 아이템 데이터 참조
                     val clickedItem = itemList[position]
                     listener.onItemClicked(clickedItem)
                 }
