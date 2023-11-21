@@ -9,7 +9,6 @@ import com.google.android.play.core.integrity.p
 import com.naver.maps.geometry.LatLng
 import com.seoulfultrip.seoulfultrip.StartplaceAdapter.Companion.savestname
 import com.seoulfultrip.seoulfultrip.databinding.ActivityPathBinding
-import com.seoulfultrip.seoulfultrip.ui.theme.SEOULFULTRIPTheme
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,7 +44,7 @@ class PathActivity : AppCompatActivity() {
         //http에 아이디, 키, 시작점의 위도경도, 도착점의 위도경도 전달
         val callGetPath = api.getPath(CLIENT_ID, CLIENT_SECRET, "129.089441, 35.231100","129.084454, 35.228982")
 
-        callGetPath.enqueue(object : Callback<PathPlace>{ //PathPlace 데이터클래스 콜백
+        callGetPath.enqueue(object : Callback<PathPlace> { //PathPlace 데이터클래스 콜백
             override fun onResponse(call: Call<PathPlace>, response: Response<PathPlace>
             ){ //전달이 성공하면 여기시작
                 val pathlist = response.body()?.route?.traoptimal //데이터클래스에서 Result_trackoption까지 받음, list형식이라 뒤는 따로 받아와야함

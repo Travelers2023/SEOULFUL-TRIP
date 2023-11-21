@@ -1,26 +1,15 @@
 package com.seoulfultrip.seoulfultrip
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import com.seoulfultrip.seoulfultrip.MyApplication.Companion.db
-import com.seoulfultrip.seoulfultrip.databinding.ActivitySelectBinding
-import com.seoulfultrip.seoulfultrip.databinding.ActivityStartplaceBinding
-import com.seoulfultrip.seoulfultrip.databinding.ItemSaveBinding
-import kotlin.math.log
-import com.google.firebase.database.*
 import com.seoulfultrip.seoulfultrip.MySelectAdapter.Companion.savepname
+import com.seoulfultrip.seoulfultrip.databinding.ActivityStartplaceBinding
 
 
 class StartplaceActivity : AppCompatActivity() {
