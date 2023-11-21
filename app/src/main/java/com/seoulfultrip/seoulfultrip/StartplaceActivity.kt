@@ -1,23 +1,21 @@
 package com.seoulfultrip.seoulfultrip
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.seoulfultrip.seoulfultrip.MyApplication.Companion.db
-import com.seoulfultrip.seoulfultrip.databinding.ActivitySelectBinding
+import com.seoulfultrip.seoulfultrip.MySelectAdapter.Companion.savepname
 import com.seoulfultrip.seoulfultrip.databinding.ActivityStartplaceBinding
-import kotlin.math.log
+
 
 class StartplaceActivity : AppCompatActivity() {
     lateinit var binding: ActivityStartplaceBinding
     val itemList = mutableListOf<PlaceStorage>()
+
 //    private lateinit var adapter: StartplaceAdapter
 //    var pname: Array<out String>?= arrayOf("")
 
@@ -29,6 +27,7 @@ class StartplaceActivity : AppCompatActivity() {
         setSupportActionBar(binding.Nexttoolbar) // toolbar 사용 선언
         getSupportActionBar()?.setTitle("출발지 설정하기")
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+
 
         db.collection("place")
             //정렬 안 함
@@ -50,9 +49,11 @@ class StartplaceActivity : AppCompatActivity() {
 //        adapter = MySaveAdapter(this, itemList)
 //        binding.saveRecyclerView.adapter = adapter
 
+
         //intent.getParcelableArrayListExtra()
 //        pname = intent.getStringArrayExtra("a")
 //        Log.d("장소이름", "${pname}")
+
 
 
         // 출발지 선택을 위하여 배열 넘겨받기 구현 예정
@@ -67,6 +68,11 @@ class StartplaceActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            android.R.id.home -> { // 뒤로가기 버튼
+                savepname.clear()
+                finish()
+            }
+
             R.id.next2_button -> {
                 val intent = Intent(this, PathActivity::class.java)
                 startActivity(intent)
@@ -75,3 +81,4 @@ class StartplaceActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 }
+

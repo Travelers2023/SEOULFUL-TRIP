@@ -20,6 +20,9 @@ class StartplaceAdapter(val context: Context, val itemList: MutableList<PlaceSto
 //    companion object {
 //        val startPlace: String? = null
 //    }
+companion object {
+    val savestname = mutableListOf<String?>()
+}
 
     val selectItem = SparseBooleanArray(0)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StartplaceViewHolder {
@@ -43,38 +46,44 @@ class StartplaceAdapter(val context: Context, val itemList: MutableList<PlaceSto
 
         // 여기 부분 다시 구현.. 받아온 배열의 이름과 같은 장소를 띄우기
         for(index in 0 .. savepname.size - 1) {
-            if(savepname[index] == data.pname)
-            holder.binding.run {
-                if (user?.email == data.email) {
-                    itemSaveLayout.visibility = View.VISIBLE
-                    itemImageView.visibility = View.VISIBLE
-                    itemView.visibility = View.VISIBLE
-                    itemNameView.text = "${data.pname}"
-                    itemAddressView.text = "${data.paddress}"
+            if (savepname[index] == data.pname) {
+                holder.binding.run {
+                    if (user?.email == data.email) {
+                        itemSaveLayout.visibility = View.VISIBLE
+                        itemImageView.visibility = View.VISIBLE
+                        itemView.visibility = View.VISIBLE
+                        itemNameView.text = "${data.pname}"
+                        itemAddressView.text = "${data.paddress}"
+                    }
                 }
             }
         }
+        //savepname.clear()
 
         holder.binding.itemSaveLayout.setOnClickListener {
+            if (savestname.size==1){
+                selectItem.put(position,true)
+                holder.binding.itemSaveLayout.setBackgroundColor(Color.parseColor("#00000000"))
+            }
             if (selectItem.get(position, false)){
                 selectItem.put(position,false)
                 holder.binding.itemSaveLayout.setBackgroundColor(Color.parseColor("#00000000"))
                 //Log.d("첫","통과")
 
                 val deletepname = mutableListOf<String?>()
-                savepname.forEachIndexed { index, value ->
+                savestname.forEachIndexed { index, value ->
                     if (value == itemList.get(position).pname){
                         deletepname.add(value)
-                        Log.d("삭제","${savepname[index]}")
+                        Log.d("삭제st","${savestname[index]}")
                     }
                 }
-                savepname.removeAll(deletepname)
-                Log.d("삭제","${savepname}")
+                savestname.removeAll(deletepname)
+                Log.d("삭제st","${savestname}")
             } else{
                 selectItem.put(position,true)
                 holder.binding.itemSaveLayout.setBackgroundColor(Color.parseColor("#26000000"))
-                savepname.add(itemList.get(position).pname)
-                Log.d("추가","${savepname}")
+                savestname.add(itemList.get(position).pname)
+                Log.d("추가st","${savestname}")
             }
 
         }
