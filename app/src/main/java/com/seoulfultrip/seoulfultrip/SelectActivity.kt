@@ -48,6 +48,7 @@ class SelectActivity : AppCompatActivity() {
 
     }
 
+
     override fun onRestart() {
         super.onRestart()
         SaveFragment().refreshAdapter()
