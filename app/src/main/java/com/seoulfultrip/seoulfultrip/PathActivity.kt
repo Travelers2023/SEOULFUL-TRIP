@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.play.core.integrity.p
 import com.naver.maps.geometry.LatLng
+import com.seoulfultrip.seoulfultrip.StartplaceAdapter.Companion.savestname
 import com.seoulfultrip.seoulfultrip.databinding.ActivityPathBinding
 import com.seoulfultrip.seoulfultrip.ui.theme.SEOULFULTRIPTheme
 import retrofit2.Call
@@ -17,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class PathActivity : AppCompatActivity() {
     lateinit var binding: ActivityPathBinding
+    val startPlace:String? = savestname[0] // 출발지 이름
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPathBinding.inflate(layoutInflater)
