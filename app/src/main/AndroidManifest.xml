@@ -29,6 +29,7 @@
             android:theme="@style/Theme.SEOULFULTRIP" />
         <activity
             android:name=".StartplaceActivity"
+            android:parentActivityName=".SelectActivity"
             android:exported="false" />
         <activity
             android:name=".SelectActivity"

@@ -18,9 +18,11 @@ class MySelectViewHolder(val binding: ItemSaveBinding) : RecyclerView.ViewHolder
 }
 
 class MySelectAdapter(val context: Context, val itemList: MutableList<PlaceStorage>): RecyclerView.Adapter<MySelectViewHolder>() {
+    companion object {
+        val savepname = mutableListOf<String?>()
+    }
 
     val selectItem = SparseBooleanArray(0)
-    val savepname = mutableListOf<String?>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MySelectViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return MySelectViewHolder(ItemSaveBinding.inflate(layoutInflater))
@@ -71,20 +73,10 @@ class MySelectAdapter(val context: Context, val itemList: MutableList<PlaceStora
                 savepname.add(itemList.get(position).pname)
                 Log.d("추가","${savepname}")
             }
-            //setMultipleSelection(position)
+
         }
 
-        if (data.selected) {
-            //holder.binding.itemSaveLayout.setBackgroundColor(Color.parseColor("#26000000"))
-            //selectItem.put(position, true)
-        }
     }
 
-    private fun setMultipleSelection(position: Int) {
-        itemList[position].selected = !itemList[position].selected
-        notifyItemChanged(position) // 데이터 적용
-
-
-    }
 
 }
