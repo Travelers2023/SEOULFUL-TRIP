@@ -150,7 +150,13 @@ class AuthActivity : AppCompatActivity() {
                             MyApplication.email = account.email
                              changeVisibility("login") // 로그인 화면으로 넘어감
                             Log.d("SWProject", "GoogleSingIn - Successful")
-                            finish()
+
+                            // AuthActivity에서 HomeFragment로 이동하는 코드
+                            val intent = Intent(this@AuthActivity, MainActivity::class.java)
+                            intent.putExtra("fragmentToLoad", "HomeFragment") // HomeFragment로 이동하기 위한 식별자 전달
+                            startActivity(intent)
+                            finish() // AuthActivity 종료 (선택 사항)
+
                         }
                         else {
                             changeVisibility("logout")

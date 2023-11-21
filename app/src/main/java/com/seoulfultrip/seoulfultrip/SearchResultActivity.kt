@@ -18,7 +18,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.seoulfultrip.seoulfultrip.MyApplication.Companion.auth
 import com.seoulfultrip.seoulfultrip.databinding.ActivitySearchResultBinding
 import com.seoulfultrip.seoulfultrip.databinding.PlaceRetrofitBinding
 import retrofit2.Call
@@ -58,28 +61,29 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
         val placeName = model.title
         val placeRef = db.collection("place").whereEqualTo("pname", placeName)
 
+        val itemList: MutableList<PlaceStorage>? = null
+        val user = Firebase.auth.currentUser
+        var data = itemList?.get(position)
+
         // 로그인한 아이디에서 동일한 장소가 저장되어있는지 확인해야 할 듯 -> 내가 이해한 코드가 아닐까봐 고치지는 않음
-
-        placeRef.get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                if (!task.result.isEmpty) {
-                    // 동일한 장소가 이미 존재하는 경우
-                    binding.saveBtn.visibility = View.GONE
-                    binding.saveBtn1.visibility = View.VISIBLE
+        if(user?.email == data?.email)
+            placeRef.get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    if (!task.result.isEmpty) {
+                        // 동일한 장소가 이미 존재하는 경우
+                        binding.saveBtn.visibility = View.GONE
+                        binding.saveBtn1.visibility = View.VISIBLE
+                    } else {
+                        // 동일한 장소가 존재하지 않는 경우
+                        binding.saveBtn.visibility = View.VISIBLE
+                        binding.saveBtn1.visibility = View.GONE
+                    }
                 } else {
-                    // 동일한 장소가 존재하지 않는 경우
-                    binding.saveBtn.visibility = View.VISIBLE
-                    binding.saveBtn1.visibility = View.GONE
+                    Log.d("Firestore", "Error getting documents: ", task.exception)
                 }
-            } else {
-                Log.d("Firestore", "Error getting documents: ", task.exception)
             }
-        }
-
-
 
         val geocoder = Geocoder(context)
-
 
         val geocodeListener = Geocoder.GeocodeListener { addresses ->
             val address = addresses.iterator()
