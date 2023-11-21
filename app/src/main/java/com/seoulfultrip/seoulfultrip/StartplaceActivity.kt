@@ -81,7 +81,6 @@ class StartplaceActivity : AppCompatActivity() {
         when (item.itemId) {
             android.R.id.home -> { // 뒤로가기 버튼
                 savepname.clear()
-                finish()
             }
 
             R.id.next2_button -> {
