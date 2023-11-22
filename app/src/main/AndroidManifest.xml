@@ -23,22 +23,24 @@
         android:theme="@style/Theme.SEOULFULTRIP"
         tools:targetApi="31">
         <activity
-            android:name=".PathActivity"
+            android:name=".HomeDetailActivity"
             android:exported="false"
-            android:label="@string/title_activity_path"
+            android:label="@string/title_activity_home_detail"
             android:theme="@style/Theme.SEOULFULTRIP" />
         <activity
             android:name=".StartplaceActivity"
-            android:parentActivityName=".SelectActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SelectActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".SelectActivity" />
         <activity
             android:name=".NowMapActivity"
             android:exported="false" />
         <activity
             android:name=".MapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PathActivity"
+            android:exported="false" />
+        <activity android:name=".SelectActivity"
             android:exported="false" />
 
         <meta-data
@@ -49,29 +51,16 @@
             android:name=".SearchResultActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-<!--        <activity-->
-<!--            android:name=".SplashActivity"-->
-<!--            android:exported="true"-->
-<!--            android:theme="@style/SplashActivityTheme">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.SEOULFULTRIP">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
-
+        </intent-filter>
         </activity>
         <activity
             android:name=".AuthActivity"

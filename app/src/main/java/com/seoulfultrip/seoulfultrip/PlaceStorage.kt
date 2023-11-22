@@ -1,7 +1,5 @@
 package com.seoulfultrip.seoulfultrip
 
-import com.google.firebase.firestore.GeoPoint
-
 data class PlaceStorage(
     var docId: String? = null,
     var email: String? = null,
