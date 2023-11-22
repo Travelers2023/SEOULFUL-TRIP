@@ -80,7 +80,7 @@ class StartplaceActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> { // 뒤로가기 버튼
-                savepname.clear()
+                savepname.clear() //화면 넘어가도 배열은 남아있어서 값전달 잘못돼서 배열초기화
                 finish()
             }
 
