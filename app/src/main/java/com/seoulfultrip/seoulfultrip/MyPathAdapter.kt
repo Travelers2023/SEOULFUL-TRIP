@@ -3,10 +3,10 @@ package com.seoulfultrip.seoulfultrip
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.seoulfultrip.seoulfultrip.StartplaceAdapter.Companion.savestname
 import com.seoulfultrip.seoulfultrip.databinding.ItemPathBinding
 
 
@@ -37,7 +37,7 @@ class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage
         } else {
             // No user is signed in
         }
-/*
+        /*
         // 여기 부분 다시 구현.. 받아온 배열의 이름과 같은 장소를 띄우기
         for (index in 0 until savepname.size) {
             if (savepname[index] == data.pname) {
@@ -271,7 +271,5 @@ class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage
 //    }
 
 
-
-
-
+    }
 }
