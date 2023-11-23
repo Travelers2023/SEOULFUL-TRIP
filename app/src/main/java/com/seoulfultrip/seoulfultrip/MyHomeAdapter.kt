@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
-class MyHomeAdapter(val context: Context, val itemList: List<HomePath>, private val listener: OnItemClickListener): RecyclerView.Adapter<MyHomeAdapter.MyHomeViewHolder>() {
+class MyHomeAdapter(val context: Context, val itemList: List<PathStorage>, private val listener: OnItemClickListener): RecyclerView.Adapter<MyHomeAdapter.MyHomeViewHolder>() {
 
     inner class MyHomeViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val cardView: CardView = itemView.findViewById(R.id.home_cv1)
@@ -44,7 +44,7 @@ class MyHomeAdapter(val context: Context, val itemList: List<HomePath>, private 
     }
 
     interface OnItemClickListener {
-        fun onItemClicked(item: HomePath)
+        fun onItemClicked(item: PathStorage)
     }
 
 }

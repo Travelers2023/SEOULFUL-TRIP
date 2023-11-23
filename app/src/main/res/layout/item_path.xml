@@ -5,11 +5,11 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/itemSaveLayout"
+        android:id="@+id/itemPathLayout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:padding="10dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -22,7 +22,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:padding="10dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:src="@drawable/icon_place" />
 
         </RelativeLayout>
@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="center_vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         android:background="#33799EEA"/>
 
 </LinearLayout>
