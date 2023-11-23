@@ -44,7 +44,6 @@ companion object {
             // No user is signed in
         }
 
-        // 여기 부분 다시 구현.. 받아온 배열의 이름과 같은 장소를 띄우기
         for(index in 0 .. savepname.size - 1) {
             if (savepname[index] == data.pname) {
                 holder.binding.run {
