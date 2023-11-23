@@ -23,7 +23,6 @@ class StartplaceAdapter(val context: Context, val itemList: MutableList<PlaceSto
 companion object {
     val savestname = mutableListOf<String?>()
 }
-
     val selectItem = SparseBooleanArray(0)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StartplaceViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

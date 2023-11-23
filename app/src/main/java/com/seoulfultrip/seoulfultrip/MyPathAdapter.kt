@@ -26,9 +26,6 @@ class MyPathViewHolder(val binding: ItemPathBinding) : RecyclerView.ViewHolder(b
 
 class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage>): RecyclerView.Adapter<MyPathViewHolder>() {
     lateinit var data : PlaceStorage
-    companion object {
-        val savestname = mutableListOf<String>()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPathViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -64,9 +61,75 @@ class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage
             }
         }
 
-        Log.d("PathAdapter-1번째 선택지","${data.pname}")
-        calculateShortestPath(data.pname.toString())
+        Log.d("PathAdapter-1번째 선택지","${StartplaceAdapter.savestname[0]}")
+        calculateShortestPath(StartplaceAdapter.savestname[0].toString())
 
+    }
+//    private fun buildGraph(): Graph {
+//        val graph = Graph()
+//        var lati : Double? = 0.0
+//        var long: Double? = 0.0
+//        //위도, 경도 받아오기
+//        for (placeName in savepname) {
+//            MyApplication.db.collection("place")
+//                .get()
+//                .addOnSuccessListener { documents ->
+//                    for (document in documents) {
+//                        // document.data는 해당 문서의 데이터를 나타냅니다.
+//                        lati = document.getDouble("latitude")
+//                        long = document.getDouble("longitude")
+//
+//                        // 데이터 사용 예시 (여기서는 로그로 출력)
+//                        Log.d("FirestoreData", "Latitude: $lati, Longitude: $long")
+//                    }
+//                }
+//                .addOnFailureListener { exception ->
+//                    // 데이터 가져오기 실패 시 처리
+//                    Log.w("FirestoreData", "Error getting documents: ", exception)
+//                }
+//
+////            val node = Node(placeName!!,//위도,//경도)
+//            val node = Node(placeName!!,lati,long)
+//            graph.nodes.add(node)
+//        }
+//
+//        for (i in 0 until graph.nodes.size) {
+//            for (j in i + 1 until graph.nodes.size) {
+//                val edgeWeight = getEdgeWeight(graph.nodes[i], graph.nodes[j]) // 시간 정보를 가져오는 함수
+//                val edge = Edge(graph.nodes[i], graph.nodes[j], edgeWeight)
+//                graph.edges.add(edge)
+//            }
+//        }
+//
+//        return graph
+//    }
+
+    private fun buildGraph(): Graph {
+        val graph = Graph()
+        var lati : Double? = null
+        var long: Double? = null
+        //위도, 경도 받아오기
+        for (placeName in savepname) {
+            if(placeName == data.pname){
+                lati = data.latitude
+                long = data.longitude
+            }
+//            val node = Node(placeName!!,//위도,//경도)
+            val node = Node(placeName!!,lati,long)
+            graph.nodes.add(node)
+            Log.d("노드","${node}")
+        }
+        Log.d("graph","${graph}")
+
+        for (i in 0 until graph.nodes.size) {
+            for (j in i + 1 until graph.nodes.size) {
+                val edgeWeight = getEdgeWeight(graph.nodes[i], graph.nodes[j]) // 시간 정보를 가져오는 함수
+                val edge = Edge(graph.nodes[i], graph.nodes[j], edgeWeight)
+                graph.edges.add(edge)
+            }
+        }
+
+        return graph
     }
 
     // 다익스트라 알고리즘을 사용하여 장소를 최단 경로에 따라 정렬
@@ -75,7 +138,7 @@ class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage
 
         if(startPlace.isNotBlank()){
             val startNode = graph.nodes.find { it.name == "${startPlace}" }
-            Log.d("시작점","${startPlace}")
+            Log.d("시작점","${startNode}")
 
             if (startNode != null) {
                 val shortestPath = dijkstra(graph, startNode)
@@ -96,6 +159,7 @@ class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage
         for (node in graph.nodes) {
             distances[node] = Int.MAX_VALUE
             previous[node] = null
+            Log.d("node","${node}")
         }
 
         distances[startNode] = 0
@@ -111,6 +175,7 @@ class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage
                 if (potentialDistance < distances[edge.destination]!!) {
                     distances[edge.destination] = potentialDistance
                     previous[edge.destination] = currentNode
+                    Log.d("다익스트라 현재 노드","${currentNode}")
                 }
             }
         }
@@ -127,25 +192,6 @@ class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage
         return path
     }
 
-    private fun buildGraph(): Graph {
-        val graph = Graph()
-        //위도, 경도 받아오기
-        for (placeName in savepname) {
-            val node = Node(placeName!!)
-            graph.nodes.add(node)
-        }
-
-        for (i in 0 until graph.nodes.size) {
-            for (j in i + 1 until graph.nodes.size) {
-                val edgeWeight = getEdgeWeight(graph.nodes[i], graph.nodes[j]) // 시간 정보를 가져오는 함수
-                val edge = Edge(graph.nodes[i], graph.nodes[j], edgeWeight)
-                graph.edges.add(edge)
-            }
-        }
-
-        return graph
-    }
-
     private fun getEdgeWeight(startNode: Node, endNode: Node): Int {
         // API를 통해 경로의 시간 정보를 받아오는 코드
         val CLIENT_ID = "ylvy2f6syf"
@@ -158,6 +204,7 @@ class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage
 
         val api = retrofit.create(PathAPI::class.java)
 
+        var a: Int = 0
         var startLati: Double? = null
         var startLong: Double? = null
         var endLati: Double? = null
@@ -173,11 +220,18 @@ class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage
             endLong = data.longitude
         }
 
-        val callGetPath = api.getPath(CLIENT_ID, CLIENT_SECRET, "${startLati},${startLong}", "${endLati},${endLong}")
-        Log.d("시작점 위경도","${startLati},${startLong}")
-//        val callGetPath = api.getPath(CLIENT_ID, CLIENT_SECRET, "129.089441, 35.231100","129.084454, 35.228982")
+//        if(endNode.latitude == null){
+//            // startplace를 제외한 모든 노드의 경로를 구함, 경로가 가장 짧은 노드를 endNode로 저장 및 해당 경로의 소요시간을 a에 저장
+//        }
 
-        var a: Int = 0
+        val callGetPath = api.getPath(
+            CLIENT_ID,
+            CLIENT_SECRET,
+            "${startLati},${startLong}",
+            "${endLati},${endLong}")
+        Log.d("시작점 위경도","${startLati},${startLong}")
+        Log.d("종료점 위경도","${endLati},${endLong}")
+
         callGetPath.enqueue(object : Callback<PathPlace> { //PathPlace 데이터클래스 콜백
             override fun onResponse(call: Call<PathPlace>, response: Response<PathPlace>
             ){ //전달이 성공하면 여기 시작
@@ -187,19 +241,17 @@ class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage
                     a = pathdi.summary.duration //시간받아옴
                     Log.d("거리 시간", "${a}")
 
-//                    val edge = Edge(startNode, endNode, a)
-//                    buildGraph().edges.add(edge)
                 }
 
                 //이거는 경로 간의 좌표들 인덱스로 받는건데 (path값 받아오는 거) 혹시 몰라서 주석처리 해놓음
-                val path_container : MutableList<LatLng>? = mutableListOf(LatLng(0.1,0.1))
-                for(path_cords in pathlist!!){
-                    for(path_cords_xy in path_cords.path){
-                        //구한 경로를 하나씩 path_container에 추가해줌
-                        path_container?.add(LatLng(path_cords_xy[1], path_cords_xy[0]))
-                        Log.d("경로1", "${path_container}")
-                    }
-                }
+//                val path_container : MutableList<LatLng>? = mutableListOf(LatLng(0.1,0.1))
+//                for(path_cords in pathlist!!){
+//                    for(path_cords_xy in path_cords.path){
+//                        //구한 경로를 하나씩 path_container에 추가해줌
+//                        path_container?.add(LatLng(path_cords_xy[1], path_cords_xy[0]))
+//                        Log.d("경로1", "${path_container}")
+//                    }
+//                }
             }
 
             override fun onFailure(call: Call<PathPlace>, t: Throwable) {
