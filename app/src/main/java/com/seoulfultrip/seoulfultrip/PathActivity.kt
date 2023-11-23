@@ -184,28 +184,39 @@ class PathActivity : AppCompatActivity() {
                             Log.d("최종리스트", "${pnamelist}")
 
                             for (index in 0..pnamelist.size-1) { //최종리스트에 있는 장소 갯수만큼 view생성 / 출발지와 그 다음 장소는 필수
+                                binding.itemPathline1.visibility=View.VISIBLE
                                 when(index) {
-                                    0 -> { binding.itemNameView1.setText(pnamelist[index])
-                                            binding.itemNameView1.visibility=View.VISIBLE
-                                            binding.itemImageView1.visibility=View.VISIBLE}
+                                    0 -> {
+                                        binding.itemNameView1.setText(pnamelist[index])
+                                        binding.itemNameView1.visibility = View.VISIBLE
+                                        binding.itemImageView1.visibility = View.VISIBLE
+                                    }
 
-                                    1 -> { binding.itemNameView2.setText(pnamelist[index])
-                                        binding.itemNameView2.visibility=View.VISIBLE
-                                        binding.itemImageView2.visibility=View.VISIBLE }
+                                    1 -> {
+                                        binding.itemNameView2.setText(pnamelist[index])
+                                        binding.itemNameView2.visibility = View.VISIBLE
+                                        binding.itemImageView2.visibility = View.VISIBLE
+                                        binding.itemPathline1.visibility=View.VISIBLE
+                                    }
                                 }
+
                                 if (pnamelist.get(index)!=null){ //리스트에 장소 없을 시 통과안함
                                     when(index) {
                                         2 -> { binding.itemNameView3.setText(pnamelist[index])
                                                 binding.itemNameView3.visibility=View.VISIBLE
-                                                binding.itemImageView3.visibility=View.VISIBLE}
+                                                binding.itemImageView3.visibility=View.VISIBLE
+                                                binding.itemPathline2.visibility=View.VISIBLE}
 
                                         3 -> {binding.itemNameView4.setText(pnamelist[index])
                                                 binding.itemNameView4.visibility=View.VISIBLE
-                                                binding.itemImageView4.visibility=View.VISIBLE}
+                                                binding.itemImageView4.visibility=View.VISIBLE
+                                                binding.itemPathline3.visibility=View.VISIBLE}
+
 
                                         4 -> {binding.itemNameView5.setText(pnamelist[index])
                                             binding.itemNameView5.visibility=View.VISIBLE
-                                            binding.itemImageView5.visibility=View.VISIBLE}
+                                            binding.itemImageView5.visibility=View.VISIBLE
+                                            binding.itemPathline4.visibility=View.VISIBLE}
                                     }
                                 }
                             }
@@ -269,9 +280,10 @@ class PathActivity : AppCompatActivity() {
                 }
             }
         }
-    }
 
 
 
+
+}
 }
 
