@@ -23,7 +23,6 @@ class StartplaceAdapter(val context: Context, val itemList: MutableList<PlaceSto
 companion object {
     val savestname = mutableListOf<String?>()
 }
-
     val selectItem = SparseBooleanArray(0)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StartplaceViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -61,7 +60,7 @@ companion object {
         //savepname.clear()
 
         holder.binding.itemSaveLayout.setOnClickListener {
-            if (savestname.size==1){
+            if (savestname.size==1){ //선택지 하나만 받아오기
                 selectItem.put(position,true)
                 holder.binding.itemSaveLayout.setBackgroundColor(Color.parseColor("#00000000"))
             }

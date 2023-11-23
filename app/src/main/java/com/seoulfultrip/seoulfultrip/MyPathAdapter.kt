@@ -3,19 +3,21 @@ package com.seoulfultrip.seoulfultrip
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.seoulfultrip.seoulfultrip.databinding.ItemPathBinding
+
 
 class MyPathViewHolder(val binding: ItemPathBinding) : RecyclerView.ViewHolder(binding.root) {
 }
 
 class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage>): RecyclerView.Adapter<MyPathViewHolder>() {
     lateinit var data : PlaceStorage
-    companion object {
-        val savestname = mutableListOf<String>()
-    }
+    val startPlace:String? = savestname[0]
+    val durationarray = mutableListOf<Int>()
+    val savepname2 = mutableListOf<String?>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPathViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -51,21 +53,88 @@ class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage
             }
         }
 
-        Log.d("PathAdapter-1번째 선택지","${data.pname}")
-        calculateShortestPath(data.pname.toString())*/
+//        Log.d("PathAdapter-1번째 선택지","${StartplaceAdapter.savestname[0]}")
+//        calculateShortestPath(StartplaceAdapter.savestname[0].toString())
 
     }
-/*
-    // 다익스트라 알고리즘을 사용하여 장소를 최단 경로에 따라 정렬
-    private fun calculateShortestPath(startPlace: String) {
-        val graph = buildGraph() // 아래에서 구현한 함수
 
-        if(startPlace.isNotBlank()){
-            val startNode = graph.nodes.find { it.name == "${startPlace}" }
-            Log.d("시작점","${startPlace}")
-
-            if (startNode != null) {
-                val shortestPath = dijkstra(graph, startNode)
+//    private fun buildGraph(): Graph {
+//        val graph = Graph()
+//        var lati : Double? = null
+//        var long: Double? = null
+//        //위도, 경도 받아오기
+//        for (placeName in savepname) {
+//            if(placeName == data.pname){
+//                lati = data.latitude
+//                long = data.longitude
+//            }
+////            val node = Node(placeName!!,//위도,//경도)
+//            val node = Node(placeName!!,lati,long)
+//            graph.nodes.add(node)
+//            Log.d("노드","${node}")
+//        }
+//        Log.d("graph","${graph}")
+//
+//        for (i in 0 until graph.nodes.size) {
+//            for (j in i + 1 until graph.nodes.size) {
+//                val edgeWeight = getEdgeWeight(graph.nodes[i], graph.nodes[j]) // 시간 정보를 가져오는 함수
+//                val edge = Edge(graph.nodes[i], graph.nodes[j], edgeWeight)
+//                graph.edges.add(edge)
+//            }
+//        }
+//
+//        return graph
+//    }
+//
+//    // 다익스트라 알고리즘을 사용하여 장소를 최단 경로에 따라 정렬
+//    private fun calculateShortestPath(startPlace: String) {
+//        val graph = buildGraph() // 아래에서 구현한 함수
+//
+//        if(startPlace.isNotBlank()){
+//            val startNode = graph.nodes.find { it.name == "${startPlace}" }
+//            Log.d("시작점","${startNode}")
+//
+//            if (startNode != null) {
+//                val shortestPath = dijkstra(graph, startNode)
+//
+//                // 최단 경로에 따라 itemList를 재정렬
+//                itemList.sortBy { shortestPath.indexOfFirst { node -> node.name == it.pname } }
+//                notifyDataSetChanged()
+//            }
+//        }
+//
+//    }
+//
+//    //다익스트라 알고리즘 코드
+//    fun dijkstra(graph: Graph, startNode: Node): List<Node> {
+//        val distances = mutableMapOf<Node, Int>()
+//        val previous = mutableMapOf<Node, Node?>()
+//
+//        for (node in graph.nodes) {
+//            distances[node] = Int.MAX_VALUE
+//            previous[node] = null
+//            Log.d("node","${node}")
+//        }
+//
+//        distances[startNode] = 0
+//
+//        val unvisitedNodes = HashSet(graph.nodes)
+//
+//        while (unvisitedNodes.isNotEmpty()) {
+//            val currentNode = unvisitedNodes.minByOrNull { distances[it]!! }!!
+//            unvisitedNodes.remove(currentNode)
+//
+//            for (edge in graph.edges.filter { it.source == currentNode }) {
+//                val potentialDistance = distances[currentNode]!! + edge.weight
+//                if (potentialDistance < distances[edge.destination]!!) {
+//                    distances[edge.destination] = potentialDistance
+//                    previous[edge.destination] = currentNode
+//                    Log.d("다익스트라 현재 노드","${currentNode}")
+//                }
+//            }
+//        }
+       // Log.d("PathAdapter-1번째 선택지","${data.pname}")
+        //calculateShortestPath(data.pname.toString())
 
                 // 최단 경로에 따라 itemList를 재정렬
                 itemList.sortBy { shortestPath.indexOfFirst { node -> node.name == it.pname } }
@@ -198,6 +267,11 @@ class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage
 
 //    private fun calculateEdgeWeight(duration: Int): Int {
 //        return duration
+
 //    }
+
+
+
+
 
 }
