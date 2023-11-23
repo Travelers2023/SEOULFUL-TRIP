@@ -1,22 +1,16 @@
 package com.seoulfultrip.seoulfultrip
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.util.SparseBooleanArray
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.play.core.integrity.p
-import com.naver.maps.geometry.LatLng
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.seoulfultrip.seoulfultrip.MySelectAdapter.Companion.savepname
 import com.seoulfultrip.seoulfultrip.StartplaceAdapter.Companion.savestname
 import com.seoulfultrip.seoulfultrip.databinding.ActivityPathBinding
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -126,13 +120,21 @@ class PathActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> {
-                savestname.clear()
+            android.R.id.home -> { // 뒤로가기 버튼
+                savestname.clear() //화면 넘어가도 배열은 남아있어서 값전달 잘못돼서 배열초기화
+
             }
 
             R.id.next1_button -> {  //저장 버튼을 누르면...
                 // 생성된 경로 파이어베이스에 저장
                 // 홈 프레그먼트로 이동
+
+                // activity 종료
+                SelectActivity().finish()
+                StartplaceActivity().finish()
+                finish()
+                // Fragment 전환
+
             }
         }
         return super.onOptionsItemSelected(item)

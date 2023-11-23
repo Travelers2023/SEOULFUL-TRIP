@@ -51,6 +51,11 @@ class MySelectAdapter(val context: Context, val itemList: MutableList<PlaceStora
         }
 
         holder.binding.itemSaveLayout.setOnClickListener {
+            if (savepname.size==5){ //선택지 5개까지 받아오기
+                selectItem.put(position,true)
+                holder.binding.itemSaveLayout.setBackgroundColor(Color.parseColor("#00000000"))
+            }
+
             if (selectItem.get(position, false)){
                 selectItem.put(position,false)
                 holder.binding.itemSaveLayout.setBackgroundColor(Color.parseColor("#00000000"))
