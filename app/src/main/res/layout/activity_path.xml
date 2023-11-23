@@ -53,7 +53,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp">
 
                 <ImageView
                     android:id="@+id/itemImageView1"
@@ -73,7 +75,7 @@
                     android:textSize="19dp"
                     android:textStyle="bold"
                     android:visibility="invisible"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="10dp"
                     app:layout_constraintBottom_toBottomOf="@+id/itemImageView1"
                     app:layout_constraintStart_toEndOf="@+id/itemImageView1"
                     app:layout_constraintTop_toTopOf="@+id/itemImageView1" />
@@ -83,6 +85,7 @@
                     android:layout_width="2.5dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="8dp"
                     android:background="#486BBB"
                     android:padding="2dp"
                     android:visibility="gone"
@@ -94,7 +97,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp">
 
                 <ImageView
                     android:id="@+id/itemImageView2"
@@ -124,6 +129,7 @@
                     android:layout_width="2.5dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="8dp"
                     android:background="#486BBB"
                     android:padding="2dp"
                     android:visibility="gone"
@@ -135,7 +141,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp">
 
                 <ImageView
                     android:id="@+id/itemImageView3"
@@ -165,6 +173,7 @@
                     android:layout_width="2.5dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="8dp"
                     android:background="#486BBB"
                     android:padding="2dp"
                     android:visibility="gone"
@@ -176,7 +185,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp">
 
                 <ImageView
                     android:id="@+id/itemImageView4"
@@ -206,6 +217,7 @@
                     android:layout_width="2.5dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="8dp"
                     android:background="#486BBB"
                     android:padding="2dp"
                     android:visibility="gone"
@@ -217,7 +229,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp">
 
                 <ImageView
                     android:id="@+id/itemImageView5"
