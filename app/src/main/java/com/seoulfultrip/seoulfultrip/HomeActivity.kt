@@ -26,16 +26,16 @@ class HomeActivity : AppCompatActivity(), MyHomeAdapter.OnItemClickListener {
 
     }
 
-    override fun onItemClicked(item: HomePath) {
+    override fun onItemClicked(item: PathStorage) {
         val intent = Intent(this, HomeDetailActivity::class.java)
         startActivity(intent)
     }
 
-    private fun createItemList(): List<HomePath> {
-        val itemList = mutableListOf<HomePath>()
+    private fun createItemList(): List<PathStorage> {
+        val itemList = mutableListOf<PathStorage>()
         // 아이템 리스트 생성...
-        itemList.add(HomePath("첫째 날", "2023-11-20", "한강공원", "타마", R.id.home_line))
-        itemList.add(HomePath("둘째 날", "2023-11-21", "건대", "홍대", R.id.home_line))
+//        itemList.add(PathStorage("첫째 날", "2023-11-20", "한강공원", "타마"))
+//        itemList.add(PathStorage("둘째 날", "2023-11-21", "건대", "홍대"))
         /*return listOf(
             HomePath("첫째 날", "2023-11-20", "한강공원", "타마", R.id.home_line),
             HomePath("둘째 날", "2023-11-21", "건대", "홍대", R.id.home_line)
