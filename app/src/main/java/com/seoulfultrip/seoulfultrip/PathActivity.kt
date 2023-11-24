@@ -10,6 +10,8 @@ import android.view.View.OnTouchListener
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.seoulfultrip.seoulfultrip.MySelectAdapter.Companion.savepname
+import com.seoulfultrip.seoulfultrip.PathActivity.Companion.itemList
+import com.seoulfultrip.seoulfultrip.PathActivity.Companion.pnamelist
 import com.seoulfultrip.seoulfultrip.StartplaceAdapter.Companion.savestname
 import com.seoulfultrip.seoulfultrip.databinding.ActivityPathBinding
 import retrofit2.Call
@@ -23,7 +25,7 @@ class PathActivity : AppCompatActivity() {
     lateinit var binding: ActivityPathBinding
     var startPlace:String? = savestname[0] // 출발지 이름
     lateinit var adapter: MyPathAdapter
-    var itemList = mutableListOf<PlaceStorage>()
+   //최종경로 저장
     var durationarray = mutableListOf<Int?>() //시간 저장
     var durationpname :MutableMap<Int?, String?> = mutableMapOf() //시간-이름 저장
     var newsavepname = mutableListOf<String?>() //출발지 빼고 list 새로 저장
@@ -31,8 +33,13 @@ class PathActivity : AppCompatActivity() {
     var slongitude: Double? = 0.0//출발지 경도
     var flatitude: Double? = 0.0//도착지 위도
     var flongitude: Double? = 0.0//도착지 경도
-    var pnamelist= mutableListOf<String?>() //최종경로 저장
 
+
+    companion object{
+        var itemList = mutableListOf<PlaceStorage>()
+        var pnamelist= mutableListOf<String?>()
+        //var copy=mutableListOf<String?>()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,6 +121,10 @@ class PathActivity : AppCompatActivity() {
                 Log.d("데이터 불러오기", "실패")
             }
 
+        binding.map.setOnClickListener {
+            val intent = Intent(this,MapPathActivity::class.java )
+            startActivity(intent)
+        }
 
     }
 
@@ -184,10 +195,20 @@ class PathActivity : AppCompatActivity() {
                 for (pathdi in pathlist!!) { //pathlist에서 summary.duration받아오기 위해 for문 사용
                     var time = pathdi.summary.duration
 
-                    durationarray.add(time) //시간 비교하기 위해 durationarray(mutablelist)에 시간만 모아서 저장
-                    durationpname.put(time,pname) // 시간에 따른 장소이름 출력하기 위해 duraionpname(mutableMap)에 key값은 시간 value값은 장소로 저장
+                    durationarray.add(time)
+                    durationpname.put(time,pname)
+
+                    /*
+                    for (index in 0 .. durationarray.size-2) {
+                        if (durationarray[index] == time) {
+                        }
+                        else{ durationarray.add(time) //시간 비교하기 위해 durationarray(mutablelist)에 시간만 모아서 저장
+                            durationpname.put(time,pname) }
+                    }*/
+                   // 시간에 따른 장소이름 출력하기 위해 duraionpname(mutableMap)에 key값은 시간 value값은 장소로 저장
                     Log.d("시간확인", "${time}")
                     Log.d("시간-장소 확인", "${durationpname}")
+                    Log.d("시간- 확인", "${durationarray}")
 
                     if(durationarray.size==newsavepname.size){ //갯수에 맞게 잘 받아왔으면
                         var mintime = timecalculate() //시간 비교->최소시간 가져옴
@@ -197,51 +218,18 @@ class PathActivity : AppCompatActivity() {
                         //Log.d("장소 확인","${b}")
                         arrayreset(nextpname) //최소시간으로 가져온 거 list에서 제외
 
-                        if(newsavepname.size==1){ //장소 하나 남으면
-                            pnamelist.add(newsavepname[0]) //하나 남은 장소 최종리스트에 추가
-                            Log.d("최종리스트", "${pnamelist}")
-
-                            for (index in 0..pnamelist.size-1) { //최종리스트에 있는 장소 갯수만큼 view생성 / 출발지와 그 다음 장소는 필수
-                                binding.itemPathline1.visibility=View.VISIBLE
-                                when(index) {
-                                    0 -> {
-                                        binding.itemNameView1.setText(pnamelist[index])
-                                        binding.itemNameView1.visibility = View.VISIBLE
-                                        binding.itemImageView1.visibility = View.VISIBLE
-                                    }
-
-                                    1 -> {
-                                        binding.itemNameView2.setText(pnamelist[index])
-                                        binding.itemNameView2.visibility = View.VISIBLE
-                                        binding.itemImageView2.visibility = View.VISIBLE
-                                        binding.itemPathline1.visibility=View.VISIBLE
-                                    }
-                                }
-
-                                if (pnamelist.get(index)!=null){ //리스트에 장소 없을 시 통과안함
-                                    when(index) {
-                                        2 -> { binding.itemNameView3.setText(pnamelist[index])
-                                                binding.itemNameView3.visibility=View.VISIBLE
-                                                binding.itemImageView3.visibility=View.VISIBLE
-                                                binding.itemPathline2.visibility=View.VISIBLE}
-
-                                        3 -> {binding.itemNameView4.setText(pnamelist[index])
-                                                binding.itemNameView4.visibility=View.VISIBLE
-                                                binding.itemImageView4.visibility=View.VISIBLE
-                                                binding.itemPathline3.visibility=View.VISIBLE}
-
-
-                                        4 -> {binding.itemNameView5.setText(pnamelist[index])
-                                            binding.itemNameView5.visibility=View.VISIBLE
-                                            binding.itemImageView5.visibility=View.VISIBLE
-                                            binding.itemPathline4.visibility=View.VISIBLE}
-                                    }
-                                }
+                        when (newsavepname.size){
+                            0->{ Log.d("최종리스트", "${pnamelist}")
+                                listvisible()
+                                continue}
+                            1->{pnamelist.add(newsavepname[0]) //하나 남은 장소 최종리스트에 추가
+                                Log.d("최종리스트", "${pnamelist}")
+                                listvisible()
+                                continue}
+                            else->{pstart(nextpname)} //장소 여러개 남았을 때 아까 구한 최소시간 장소 넘겨주기
                             }
+                        }
 
-                            return continue}
-                        else{pstart(nextpname)} //장소 여러개 남았을 때 아까 구한 최소시간 장소 넘겨주기
-                    }
 
                 } //시간받아옴
             }
@@ -265,7 +253,7 @@ class PathActivity : AppCompatActivity() {
         return min
 
 
-        }
+    }
 
 
 
@@ -299,9 +287,49 @@ class PathActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun listvisible(){
+        for (index in 0..pnamelist.size-1) { //최종리스트에 있는 장소 갯수만큼 view생성 / 출발지와 그 다음 장소는 필수
+
+            when(index) {
+                0 -> {
+                    binding.itemNameView1.setText(pnamelist[index])
+                    binding.itemNameView1.visibility = View.VISIBLE
+                    binding.itemImageView1.visibility = View.VISIBLE
+                    binding.itemPathline1.visibility=View.VISIBLE
+                }
+
+                1 -> {
+                    binding.itemNameView2.setText(pnamelist[index])
+                    binding.itemNameView2.visibility = View.VISIBLE
+                    binding.itemImageView2.visibility = View.VISIBLE
+                    binding.itemPathline1.visibility=View.VISIBLE
+                }
+            }
+
+            if (pnamelist.get(index)!=null){ //리스트에 장소 없을 시 통과안함
+                when(index) {
+                    2 -> { binding.itemNameView3.setText(pnamelist[index])
+                        binding.itemNameView3.visibility=View.VISIBLE
+                        binding.itemImageView3.visibility=View.VISIBLE
+                        binding.itemPathline2.visibility=View.VISIBLE}
+
+                    3 -> {binding.itemNameView4.setText(pnamelist[index])
+                        binding.itemNameView4.visibility=View.VISIBLE
+                        binding.itemImageView4.visibility=View.VISIBLE
+                        binding.itemPathline3.visibility=View.VISIBLE}
 
 
+                    4 -> {binding.itemNameView5.setText(pnamelist[index])
+                        binding.itemNameView5.visibility=View.VISIBLE
+                        binding.itemImageView5.visibility=View.VISIBLE
+                        binding.itemPathline4.visibility=View.VISIBLE}
+                }
+            }
 
-}
+        }
+
+    }
 }
 

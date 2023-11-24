@@ -16,6 +16,8 @@
         android:id="@+id/pathLayout"
         android:orientation="vertical">
 
+
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar_path"
             android:layout_width="match_parent"
@@ -52,10 +54,21 @@
             android:orientation="vertical"
             android:padding="10dp">
 
+            <Button
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="경로를 지도로 확인하기"
+                android:textColor="@color/black"
+                android:gravity="left"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/targetsize"
+                />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginLeft="40dp">
 
                 <ImageView
@@ -258,6 +271,10 @@
                     app:layout_constraintTop_toTopOf="@+id/itemImageView5" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
 
         </LinearLayout>
 
