@@ -3,11 +3,9 @@ package com.seoulfultrip.seoulfultrip
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.seoulfultrip.seoulfultrip.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -55,6 +53,15 @@ class HomeFragment : Fragment(){
 
         return binding.root
 
+    }
+
+    // Home 새로고침을 위한 코드
+    override fun onResume() {
+        super.onResume()
+    }
+
+    fun refreshAdapter() {
+        // 파이어베이스에서 경로 받아온 후 리사이클러뷰 재정렬 필요 .. 구현 예정
     }
 
     companion object {
