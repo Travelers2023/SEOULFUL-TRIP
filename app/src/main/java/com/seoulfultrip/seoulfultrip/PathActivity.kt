@@ -63,21 +63,6 @@ class PathActivity : AppCompatActivity() {
             false
         })
 
-        /*
-        MyApplication.db.collection("place")
-            //정렬 안 함
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val item = document.toObject(PlaceStorage::class.java)
-                    item.docId = document.id
-                    itemList.add(item)
-                    Log.d("d", " ${itemList.size}")
-                }
-                    //binding.pathRecyclerView.layoutManager = LinearLayoutManager(this)
-                    //binding.pathRecyclerView.adapter = MyPathAdapter(this, itemList)
-*/
-
         val user = Firebase.auth.currentUser
         MyApplication.db.collection("place")
             //정렬 안 함

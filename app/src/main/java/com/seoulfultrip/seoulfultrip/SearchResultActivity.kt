@@ -1,5 +1,6 @@
 package com.seoulfultrip.seoulfultrip
 
+//import androidx.compose.foundation.gestures.ModifierLocalScrollableContainerProvider.value
 import android.content.Context
 import android.content.Intent
 import android.location.Geocoder
@@ -12,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-//import androidx.compose.foundation.gestures.ModifierLocalScrollableContainerProvider.value
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -56,14 +56,23 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
 
         //저장된 장소는 saveBtn_1로 표시
         val placeName = model.title
-        val placeRef = db.collection("place").whereEqualTo("pname", placeName)
-
         val itemList: MutableList<PlaceStorage>? = null
         val user = Firebase.auth.currentUser
         var data = itemList?.get(position)
 
+
+//        val placeRef = db.collection("place").whereEqualTo("pname", placeName)
+
+        // 이메일로 장소 이름 걸러오기
+        var placeRef = db.collection("place").whereEqualTo("pname", placeName)
+
+        if(user?.email == data?.email) { // 이메일이 같다면 장소 이름을 받아오기
+            placeRef = db.collection("place").whereEqualTo("pname", placeName)
+        }
+
+
         // 로그인한 아이디에서 동일한 장소가 저장되어있는지 확인해야 할 듯 -> 내가 이해한 코드가 아닐까봐 고치지는 않음
-        if(user?.email == data?.email){
+        if(user?.email == data?.email) {
             placeRef.get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     if (!task.result.isEmpty) {
