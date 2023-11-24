@@ -47,6 +47,9 @@
         <activity
             android:name=".MapActivity"
             android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
@@ -56,6 +59,7 @@
             android:name=".SearchResultActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -72,6 +76,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".AuthActivity"
             android:exported="false"

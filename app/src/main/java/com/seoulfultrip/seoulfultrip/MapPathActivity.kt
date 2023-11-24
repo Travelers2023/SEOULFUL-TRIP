@@ -57,19 +57,22 @@ class MapPathActivity : AppCompatActivity(), OnMapReadyCallback {
         //mapFragment.getMapAsync(this)
 
 Log.d("d", "${itemList.get(0)}")
-        Log.d("d", "${pnamelist}")
-        for (index in 0..itemList.size - 1) {
-            val num = itemList.get(index)
+        //Log.d("d", "${num}")
+
             for(i in 0..pnamelist.size-1) {
-                if (pnamelist[i] == num.pname) {
-                    slongitude = num.longitude
-                    slatitude = num.latitude
-                    longitudelist.add(slongitude)
-                    latitudelist.add(slatitude)
-                    Log.d("출발지${index}", " ${slongitude},${slatitude}")
+                for (index in 0..itemList.size - 1) {
+                    val num = itemList.get(index)
+                    Log.d("d", "${num}")
+                    if (pnamelist[i] == num.pname) {
+                        slongitude = num.longitude
+                        slatitude = num.latitude
+                        longitudelist.add(slongitude)
+                        latitudelist.add(slatitude)
+                        Log.d("출발지${index}", " ${slongitude},${slatitude}")
+                    }
                 }
             }
-        }
+
 
 
 
@@ -243,13 +246,7 @@ Log.d("d", "${itemList.get(0)}")
 
             //mapFragment.getMapAsync(this)
 
-            runOnUiThread{
-                val marker = Marker() //지도에 마커표시
-                marker.position = LatLng(latitudelist[0]!!, longitudelist[0]!!)
-                marker.map = naverMap
-                Log.d("성공","마커")
 
-            }
 
         }
 

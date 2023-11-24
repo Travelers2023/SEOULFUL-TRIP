@@ -1,30 +1,25 @@
 package com.seoulfultrip.seoulfultrip
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.util.SparseBooleanArray
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
+import android.view.View.OnTouchListener
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.play.core.integrity.p
-import com.naver.maps.geometry.LatLng
 import com.seoulfultrip.seoulfultrip.MySelectAdapter.Companion.savepname
 import com.seoulfultrip.seoulfultrip.PathActivity.Companion.itemList
 import com.seoulfultrip.seoulfultrip.PathActivity.Companion.pnamelist
 import com.seoulfultrip.seoulfultrip.StartplaceAdapter.Companion.savestname
 import com.seoulfultrip.seoulfultrip.databinding.ActivityPathBinding
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 class PathActivity : AppCompatActivity() {
     lateinit var binding: ActivityPathBinding
@@ -56,6 +51,16 @@ class PathActivity : AppCompatActivity() {
         setSupportActionBar(binding.Pathtoolbar) // toolbar 사용 선언
         getSupportActionBar()?.setTitle("${pathName}") // 사용자가 설정한 경로 이름으로 변경 (추후 수정)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+
+        binding.pathLayout.setOnTouchListener(OnTouchListener { v, event ->
+            val inputManager =
+                this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputManager.hideSoftInputFromWindow(
+                this.currentFocus!!.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
+            false
+        })
 
         MyApplication.db.collection("place")
             //정렬 안 함
@@ -136,15 +141,27 @@ class PathActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    // 장소 저장 후 Home 새로고침을 위한 코드 (현재 저장한 경로가 떠야하므로)
+    override fun onRestart() {
+        super.onRestart()
+        HomeFragment().refreshAdapter()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> {
-                savestname.clear()
+            android.R.id.home -> { // 뒤로가기 버튼
+                savestname.clear() //화면 넘어가도 배열은 남아있어서 값전달 잘못돼서 배열초기화
+
             }
 
             R.id.next1_button -> {  //저장 버튼을 누르면...
                 // 생성된 경로 파이어베이스에 저장
+
                 // 홈 프레그먼트로 이동
+                val intent = Intent(this,MainActivity::class.java)
+                startActivity(intent)
+                finish()
+
             }
         }
         return super.onOptionsItemSelected(item)
@@ -178,8 +195,17 @@ class PathActivity : AppCompatActivity() {
                 for (pathdi in pathlist!!) { //pathlist에서 summary.duration받아오기 위해 for문 사용
                     var time = pathdi.summary.duration
 
-                    durationarray.add(time) //시간 비교하기 위해 durationarray(mutablelist)에 시간만 모아서 저장
-                    durationpname.put(time,pname) // 시간에 따른 장소이름 출력하기 위해 duraionpname(mutableMap)에 key값은 시간 value값은 장소로 저장
+                    durationarray.add(time)
+                    durationpname.put(time,pname)
+
+                    /*
+                    for (index in 0 .. durationarray.size-2) {
+                        if (durationarray[index] == time) {
+                        }
+                        else{ durationarray.add(time) //시간 비교하기 위해 durationarray(mutablelist)에 시간만 모아서 저장
+                            durationpname.put(time,pname) }
+                    }*/
+                   // 시간에 따른 장소이름 출력하기 위해 duraionpname(mutableMap)에 key값은 시간 value값은 장소로 저장
                     Log.d("시간확인", "${time}")
                     Log.d("시간-장소 확인", "${durationpname}")
                     Log.d("시간- 확인", "${durationarray}")

@@ -3,39 +3,25 @@ package com.seoulfultrip.seoulfultrip
 import android.Manifest
 import android.annotation.TargetApi
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.compose.ui.input.key.Key.Companion.F
-import androidx.constraintlayout.motion.widget.Debug.getLocation
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
-import com.google.android.play.integrity.internal.x
-import com.seoulfultrip.seoulfultrip.GetSearchPlace
-import com.seoulfultrip.seoulfultrip.Items
-import com.seoulfultrip.seoulfultrip.PlaceAPI
 import com.seoulfultrip.seoulfultrip.databinding.FragmentSearchBinding
-import com.seoulfultrip.seoulfultrip.databinding.PlaceRetrofitBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -91,6 +77,14 @@ class SearchFragment : Fragment() {
             }
 
         }
+
+        //엔터키 이벤트 처리
+        binding.edtProduct.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            when (keyCode) {
+                KeyEvent.KEYCODE_ENTER -> binding.btnSearch.callOnClick()
+            }
+            false
+        })
 
         //맵 activity연결 버튼
         binding.nowmapbutton.setOnClickListener{
