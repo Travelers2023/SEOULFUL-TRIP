@@ -9,9 +9,9 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.seoulfultrip.seoulfultrip.MySelectAdapter.Companion.savepname
-import com.seoulfultrip.seoulfultrip.PathActivity.Companion.itemList
-import com.seoulfultrip.seoulfultrip.PathActivity.Companion.pnamelist
 import com.seoulfultrip.seoulfultrip.StartplaceAdapter.Companion.savestname
 import com.seoulfultrip.seoulfultrip.databinding.ActivityPathBinding
 import retrofit2.Call
@@ -52,6 +52,7 @@ class PathActivity : AppCompatActivity() {
         getSupportActionBar()?.setTitle("${pathName}") // 사용자가 설정한 경로 이름으로 변경 (추후 수정)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
+        // 작성 후 아무 화면 터치 시 키보드 내리기
         binding.pathLayout.setOnTouchListener(OnTouchListener { v, event ->
             val inputManager =
                 this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -62,6 +63,7 @@ class PathActivity : AppCompatActivity() {
             false
         })
 
+        /*
         MyApplication.db.collection("place")
             //정렬 안 함
             .get()
@@ -74,9 +76,23 @@ class PathActivity : AppCompatActivity() {
                 }
                     //binding.pathRecyclerView.layoutManager = LinearLayoutManager(this)
                     //binding.pathRecyclerView.adapter = MyPathAdapter(this, itemList)
+*/
 
+        val user = Firebase.auth.currentUser
+        MyApplication.db.collection("place")
+            //정렬 안 함
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val item = document.toObject(PlaceStorage::class.java)
+                    if(user?.email == item.email) {  // 이메일 같은 것만 itemList에 넣기
+                        item.docId = document.id
+                        itemList.add(item)
+                    }
+                    Log.d("d", " ${itemList.size}")
+                }
 
-                    //설정한 출발지 빼고 list 새로 생성
+                //설정한 출발지 빼고 list 새로 생성
                     for (index in 0 until savepname.size) {
                         if (startPlace != savepname.get(index)) {
                             newsavepname.add(savepname[index])
@@ -162,6 +178,10 @@ class PathActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
 
+                // 배열 초기화
+                savepname.clear()
+                savestname.clear()
+                newsavepname.clear()
             }
         }
         return super.onOptionsItemSelected(item)
