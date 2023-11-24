@@ -35,11 +35,8 @@ class HomeActivity : AppCompatActivity(), MyHomeAdapter.OnItemClickListener {
         val itemList = mutableListOf<PathStorage>()
         // 아이템 리스트 생성...
 //        itemList.add(PathStorage("첫째 날", "2023-11-20", "한강공원", "타마"))
-//        itemList.add(PathStorage("둘째 날", "2023-11-21", "건대", "홍대"))
-        /*return listOf(
-            HomePath("첫째 날", "2023-11-20", "한강공원", "타마", R.id.home_line),
-            HomePath("둘째 날", "2023-11-21", "건대", "홍대", R.id.home_line)
-        )*/
+        itemList.add(PathStorage("docId", "20210699", "제주도 : 첫째 날", "2023-11-20","제주 공항","밥집","카페"))
+
         return itemList
     }
 }

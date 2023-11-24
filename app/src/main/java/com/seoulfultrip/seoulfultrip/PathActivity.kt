@@ -8,8 +8,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.seoulfultrip.seoulfultrip.MySelectAdapter.Companion.savepname
 import com.seoulfultrip.seoulfultrip.StartplaceAdapter.Companion.savestname
@@ -19,12 +21,16 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 class PathActivity : AppCompatActivity() {
     lateinit var binding: ActivityPathBinding
     var startPlace:String? = savestname[0] // 출발지 이름
     lateinit var adapter: MyPathAdapter
+    lateinit var pathID: String
     //최종경로 저장
     var durationarray = mutableListOf<Int?>() //시간 저장
     var durationpname :MutableMap<Int?, String?> = mutableMapOf() //시간-이름 저장
@@ -86,8 +92,6 @@ class PathActivity : AppCompatActivity() {
                 //최종리스트에 출발지 추가
                 pnamelist.add(startPlace)
                 Log.d("출발지빼고 리스트", " ${newsavepname}")
-
-
 
                 //itemList에서 출발지 위도 경도 가져오기
                 for (index in 0..itemList.size - 1) {
@@ -157,7 +161,13 @@ class PathActivity : AppCompatActivity() {
 
             R.id.next1_button -> {  //저장 버튼을 누르면...
                 // 생성된 경로 파이어베이스에 저장
-
+                if(binding.pathName.text.toString().isNotEmpty()){
+                    savePath()
+                    finish()
+                }
+                else{
+                    Toast.makeText(this,"제목을 입력해주세요.",Toast.LENGTH_SHORT).show()
+                }
                 // 홈 프레그먼트로 이동
                 val intent = Intent(this,MainActivity::class.java)
                 startActivity(intent)
@@ -170,6 +180,44 @@ class PathActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun savePath() {
+        val db = Firebase.firestore
+        val pathName = binding.pathName.text.toString()
+        val pname1 = binding.itemNameView1.text.toString()
+        val pname2 = binding.itemNameView2.text.toString()
+        val pname3 = binding.itemNameView3.text.toString()
+        val pname4 = binding.itemNameView4.text.toString()
+        val pname5 = binding.itemNameView5.text.toString()
+
+        Log.d("경로 이름이 뭐예요","${pathName}")
+
+        val data = hashMapOf(
+            "email" to MyApplication.email,
+            "pathDate" to dateToString(Date()),
+            "pathName" to pathName,
+            "pname1" to pname1,
+            "pname2" to pname2,
+            "pname3" to pname3,
+            "pname4" to pname4,
+            "pname5" to pname5
+        )
+
+        db.collection("path")
+            .add(data)
+            .addOnSuccessListener {
+                Log.d("Firebase-경로 저장","저장 성공")
+                Toast.makeText(this,"[${pathName}] 경로가 저장되었습니다.",Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Log.d("Firebase-경로 저장", "저장 실패", e)
+            }
+    }
+
+    private fun dateToString(date: Date): String {
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN)
+        return format.format(date)
     }
 
     //시간 받아오는 함수
