@@ -8,7 +8,11 @@ import android.view.MenuItem
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.play.core.integrity.e
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.seoulfultrip.seoulfultrip.MySelectAdapter.Companion.savepname
 import com.seoulfultrip.seoulfultrip.StartplaceAdapter.Companion.savestname
 import com.seoulfultrip.seoulfultrip.databinding.ActivityPathBinding
@@ -32,13 +36,12 @@ class PathActivity : AppCompatActivity() {
     var flatitude: Double? = 0.0//도착지 위도
     var flongitude: Double? = 0.0//도착지 경도
     var pnamelist= mutableListOf<String?>() //최종경로 저장
-    var pathName: String? = null
+    var pathName: String? = binding.pathName.text.toString()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPathBinding.inflate(layoutInflater)
-        pathName = binding.pathName.text.toString()
         setContentView(binding.root)
 
         setSupportActionBar(binding.Pathtoolbar) // toolbar 사용 선언
@@ -135,21 +138,16 @@ class PathActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> { // 뒤로가기 버튼
-                savestname.clear() //화면 넘어가도 배열은 남아있어서 값전달 잘못돼서 배열초기화
+                savestname.clear() //화면 넘어가도 배열은 남아있어서 값 전달 잘못돼서 배열초기화
 
             }
 
             R.id.next1_button -> {  //저장 버튼을 누르면...
                 // 생성된 경로 파이어베이스에 저장
-//<<<<<<< HEAD
-//                // 성공적으로 저장되면...
-//                Toast.makeText(this,"${pathName} 경로가 저장되었습니다.",Toast.LENGTH_SHORT).show()
-//                // 홈 프레그먼트로 이동
-//                val intent = Intent(this@PathActivity, MainActivity::class.java)
-//                intent.putExtra("fragmentToLoad", "HomeFragment") // HomeFragment로 이동하기 위한 식별자 전달
-//                startActivity(intent)
-//                finish() // AuthActivity 종료 (선택 사항)
-//=======
+                // 성공적으로 저장되면...
+                if(binding.pathName.text.toString().isNotEmpty()){
+                    updatePath()
+                }
 
                 // 홈 프레그먼트로 이동
                 val intent = Intent(this,MainActivity::class.java)
@@ -158,6 +156,38 @@ class PathActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun updatePath() {
+        val db = Firebase.firestore
+//        val email = 저장한 유저 이메일
+//        val pathDate = 저장되는 현재 날짜
+        val pathName = binding.pathName.text.toString()
+        val pname1 = binding.itemNameView1.text.toString()
+        val pname2 = binding.itemNameView2.text.toString()
+        val pname3 = binding.itemNameView3.text.toString()
+        val pname4 = binding.itemNameView4.text.toString()
+        val pname5 = binding.itemNameView5.text.toString()
+
+        val pathref = db.collection("path").document()
+        val data = hashMapOf(
+            "pathName" to pathName,
+            "pname1" to pname1,
+            "pname2" to pname2,
+            "pname3" to pname3,
+            "pname4" to pname4,
+            "pname5" to pname5
+        )
+
+        pathref.update(data as Map<String,Any>)
+            .addOnSuccessListener {
+                setResult(RESULT_OK)
+                finish()
+                Toast.makeText(this,"${pathName} 경로가 저장되었습니다.",Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { exception ->
+                Log.d("Firebase-경로 저장","저장 실패")
+            }
     }
 
     //시간 받아오는 함수
