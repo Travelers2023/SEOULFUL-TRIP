@@ -3,25 +3,22 @@ package com.seoulfultrip.seoulfultrip
 import android.content.Context
 import android.content.Intent
 import android.location.Geocoder
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+//import androidx.compose.foundation.gestures.ModifierLocalScrollableContainerProvider.value
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import com.seoulfultrip.seoulfultrip.MyApplication.Companion.auth
 import com.seoulfultrip.seoulfultrip.databinding.ActivitySearchResultBinding
 import com.seoulfultrip.seoulfultrip.databinding.PlaceRetrofitBinding
 import retrofit2.Call
@@ -182,8 +179,10 @@ class SearchResultActivity : AppCompatActivity()  {
         val binding = ActivitySearchResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var place = intent.getStringExtra("keyword")
 
-        val place = intent.getStringExtra("keyword")
+        // 검색 시 누른 enter 제거
+        place = place?.replace(System.getProperty("line.separator").toString(), "")
 
         binding.edtProduct2.setText(place)
 

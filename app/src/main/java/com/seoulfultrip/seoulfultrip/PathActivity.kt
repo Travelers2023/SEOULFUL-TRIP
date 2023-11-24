@@ -1,28 +1,23 @@
 package com.seoulfultrip.seoulfultrip
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.util.SparseBooleanArray
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
+import android.view.View.OnTouchListener
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.play.core.integrity.p
-import com.naver.maps.geometry.LatLng
 import com.seoulfultrip.seoulfultrip.MySelectAdapter.Companion.savepname
 import com.seoulfultrip.seoulfultrip.StartplaceAdapter.Companion.savestname
 import com.seoulfultrip.seoulfultrip.databinding.ActivityPathBinding
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 class PathActivity : AppCompatActivity() {
     lateinit var binding: ActivityPathBinding
@@ -49,6 +44,16 @@ class PathActivity : AppCompatActivity() {
         setSupportActionBar(binding.Pathtoolbar) // toolbar 사용 선언
         getSupportActionBar()?.setTitle("${pathName}") // 사용자가 설정한 경로 이름으로 변경 (추후 수정)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+
+        binding.pathLayout.setOnTouchListener(OnTouchListener { v, event ->
+            val inputManager =
+                this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputManager.hideSoftInputFromWindow(
+                this.currentFocus!!.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
+            false
+        })
 
         MyApplication.db.collection("place")
             //정렬 안 함
@@ -121,21 +126,35 @@ class PathActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    // 장소 저장 후 Home 새로고침을 위한 코드 (현재 저장한 경로가 떠야하므로)
+    override fun onRestart() {
+        super.onRestart()
+        HomeFragment().refreshAdapter()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> {
-                savestname.clear()
+            android.R.id.home -> { // 뒤로가기 버튼
+                savestname.clear() //화면 넘어가도 배열은 남아있어서 값전달 잘못돼서 배열초기화
+
             }
 
             R.id.next1_button -> {  //저장 버튼을 누르면...
                 // 생성된 경로 파이어베이스에 저장
-                // 성공적으로 저장되면...
-                Toast.makeText(this,"${pathName} 경로가 저장되었습니다.",Toast.LENGTH_SHORT).show()
+//<<<<<<< HEAD
+//                // 성공적으로 저장되면...
+//                Toast.makeText(this,"${pathName} 경로가 저장되었습니다.",Toast.LENGTH_SHORT).show()
+//                // 홈 프레그먼트로 이동
+//                val intent = Intent(this@PathActivity, MainActivity::class.java)
+//                intent.putExtra("fragmentToLoad", "HomeFragment") // HomeFragment로 이동하기 위한 식별자 전달
+//                startActivity(intent)
+//                finish() // AuthActivity 종료 (선택 사항)
+//=======
+
                 // 홈 프레그먼트로 이동
-                val intent = Intent(this@PathActivity, MainActivity::class.java)
-                intent.putExtra("fragmentToLoad", "HomeFragment") // HomeFragment로 이동하기 위한 식별자 전달
+                val intent = Intent(this,MainActivity::class.java)
                 startActivity(intent)
-                finish() // AuthActivity 종료 (선택 사항)
+                finish()
             }
         }
         return super.onOptionsItemSelected(item)

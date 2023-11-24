@@ -12,6 +12,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
+        android:id="@+id/pathLayout"
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
