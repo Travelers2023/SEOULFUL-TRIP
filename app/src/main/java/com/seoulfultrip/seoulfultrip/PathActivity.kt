@@ -8,10 +8,12 @@ import android.view.MenuItem
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.seoulfultrip.seoulfultrip.MySelectAdapter.Companion.savepname
-import com.seoulfultrip.seoulfultrip.PathActivity.Companion.itemList
-import com.seoulfultrip.seoulfultrip.PathActivity.Companion.pnamelist
 import com.seoulfultrip.seoulfultrip.StartplaceAdapter.Companion.savestname
 import com.seoulfultrip.seoulfultrip.databinding.ActivityPathBinding
 import retrofit2.Call
@@ -19,13 +21,17 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 class PathActivity : AppCompatActivity() {
     lateinit var binding: ActivityPathBinding
     var startPlace:String? = savestname[0] // 출발지 이름
     lateinit var adapter: MyPathAdapter
-   //최종경로 저장
+    lateinit var pathID: String
+    //최종경로 저장
     var durationarray = mutableListOf<Int?>() //시간 저장
     var durationpname :MutableMap<Int?, String?> = mutableMapOf() //시간-이름 저장
     var newsavepname = mutableListOf<String?>() //출발지 빼고 list 새로 저장
@@ -33,7 +39,6 @@ class PathActivity : AppCompatActivity() {
     var slongitude: Double? = 0.0//출발지 경도
     var flatitude: Double? = 0.0//도착지 위도
     var flongitude: Double? = 0.0//도착지 경도
-
 
     companion object{
         var itemList = mutableListOf<PlaceStorage>()
@@ -52,6 +57,7 @@ class PathActivity : AppCompatActivity() {
         getSupportActionBar()?.setTitle("${pathName}") // 사용자가 설정한 경로 이름으로 변경 (추후 수정)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
+        // 작성 후 아무 화면 터치 시 키보드 내리기
         binding.pathLayout.setOnTouchListener(OnTouchListener { v, event ->
             val inputManager =
                 this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -62,60 +68,58 @@ class PathActivity : AppCompatActivity() {
             false
         })
 
+        val user = Firebase.auth.currentUser
         MyApplication.db.collection("place")
             //정렬 안 함
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
                     val item = document.toObject(PlaceStorage::class.java)
-                    item.docId = document.id
-                    itemList.add(item)
+                    if(user?.email == item.email) {  // 이메일 같은 것만 itemList에 넣기
+                        item.docId = document.id
+                        itemList.add(item)
+                    }
                     Log.d("d", " ${itemList.size}")
                 }
-                    //binding.pathRecyclerView.layoutManager = LinearLayoutManager(this)
-                    //binding.pathRecyclerView.adapter = MyPathAdapter(this, itemList)
 
-
-                    //설정한 출발지 빼고 list 새로 생성
-                    for (index in 0 until savepname.size) {
-                        if (startPlace != savepname.get(index)) {
-                            newsavepname.add(savepname[index])
-                        }
+                //설정한 출발지 빼고 list 새로 생성
+                for (index in 0 until savepname.size) {
+                    if (startPlace != savepname.get(index)) {
+                        newsavepname.add(savepname[index])
                     }
-                    //최종리스트에 출발지 추가
-                    pnamelist.add(startPlace)
-                    Log.d("출발지빼고 리스트", " ${newsavepname}")
-
-
-
-                    //itemList에서 출발지 위도 경도 가져오기
-                    for (index in 0..itemList.size - 1) {
-                        val num = itemList.get(index)
-                        if (startPlace == num.pname) {
-                            slongitude = num.longitude
-                            slatitude = num.latitude
-                            Log.d("출발지${index}", " ${slongitude},${slatitude}")
-                        }
-                    }
-
-
-                    //출발지 제외하고 나머지 위도 경도 받아와서 api로 시간 받아오기
-                    for (index in 0..itemList.size - 1) {
-                        val num = itemList.get(index)
-                        for (index in 0..newsavepname.size - 1) {
-                            if (newsavepname[index] == num.pname) {
-                                flongitude = num.longitude
-                                flatitude = num.latitude
-                                Log.d("끝도착${index}", " ${flongitude}, ${flatitude}")
-                                //pnamelong.put(num.pname, flongitude)
-                                apistart(slongitude, slatitude, flongitude, flatitude, num.pname)
-
-                            }
-                        }
-                    }
-
-
                 }
+                //최종리스트에 출발지 추가
+                pnamelist.add(startPlace)
+                Log.d("출발지빼고 리스트", " ${newsavepname}")
+
+                //itemList에서 출발지 위도 경도 가져오기
+                for (index in 0..itemList.size - 1) {
+                    val num = itemList.get(index)
+                    if (startPlace == num.pname) {
+                        slongitude = num.longitude
+                        slatitude = num.latitude
+                        Log.d("출발지${index}", " ${slongitude},${slatitude}")
+                    }
+                }
+
+
+                //출발지 제외하고 나머지 위도 경도 받아와서 api로 시간 받아오기
+                for (index in 0..itemList.size - 1) {
+                    val num = itemList.get(index)
+                    for (index in 0..newsavepname.size - 1) {
+                        if (newsavepname[index] == num.pname) {
+                            flongitude = num.longitude
+                            flatitude = num.latitude
+                            Log.d("끝도착${index}", " ${flongitude}, ${flatitude}")
+                            //pnamelong.put(num.pname, flongitude)
+                            apistart(slongitude, slatitude, flongitude, flatitude, num.pname)
+
+                        }
+                    }
+                }
+
+
+            }
 
             .addOnFailureListener {
                 Log.d("데이터 불러오기", "실패")
@@ -156,15 +160,61 @@ class PathActivity : AppCompatActivity() {
 
             R.id.next1_button -> {  //저장 버튼을 누르면...
                 // 생성된 경로 파이어베이스에 저장
-
+                if(binding.pathName.text.toString().isNotEmpty()){
+                    savePath()
+                    finish()
+                }
+                else{
+                    Toast.makeText(this,"제목을 입력해주세요.",Toast.LENGTH_SHORT).show()
+                }
                 // 홈 프레그먼트로 이동
                 val intent = Intent(this,MainActivity::class.java)
                 startActivity(intent)
                 finish()
 
+                // 배열 초기화
+                savepname.clear()
+                savestname.clear()
+                newsavepname.clear()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun savePath() {
+        val db = Firebase.firestore
+        val pathName = binding.pathName.text.toString()
+        val pstart = binding.itemNameView1.text.toString()
+        val pname1 = binding.itemNameView2.text.toString()
+        val pname2 = binding.itemNameView3.text.toString()
+        val pname3 = binding.itemNameView4.text.toString()
+        val pname4 = binding.itemNameView5.text.toString()
+
+        val data = hashMapOf(
+            "email" to MyApplication.email,
+            "pathDate" to dateToString(Date()),
+            "pathName" to pathName,
+            "pstart" to pstart,
+            "pname1" to pname1,
+            "pname2" to pname2,
+            "pname3" to pname3,
+            "pname4" to pname4
+        )
+
+        db.collection("path")
+            .add(data)
+            .addOnSuccessListener {
+                Log.d("Firebase-경로 저장","저장 성공")
+                Toast.makeText(this,"[${pathName}] 경로가 저장되었습니다.",Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Log.d("Firebase-경로 저장", "저장 실패", e)
+            }
+    }
+
+    private fun dateToString(date: Date): String {
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN)
+        return format.format(date)
     }
 
     //시간 받아오는 함수
@@ -205,7 +255,7 @@ class PathActivity : AppCompatActivity() {
                         else{ durationarray.add(time) //시간 비교하기 위해 durationarray(mutablelist)에 시간만 모아서 저장
                             durationpname.put(time,pname) }
                     }*/
-                   // 시간에 따른 장소이름 출력하기 위해 duraionpname(mutableMap)에 key값은 시간 value값은 장소로 저장
+                    // 시간에 따른 장소이름 출력하기 위해 duraionpname(mutableMap)에 key값은 시간 value값은 장소로 저장
                     Log.d("시간확인", "${time}")
                     Log.d("시간-장소 확인", "${durationpname}")
                     Log.d("시간- 확인", "${durationarray}")
@@ -227,8 +277,8 @@ class PathActivity : AppCompatActivity() {
                                 listvisible()
                                 continue}
                             else->{pstart(nextpname)} //장소 여러개 남았을 때 아까 구한 최소시간 장소 넘겨주기
-                            }
                         }
+                    }
 
 
                 } //시간받아옴
@@ -332,4 +382,3 @@ class PathActivity : AppCompatActivity() {
 
     }
 }
-

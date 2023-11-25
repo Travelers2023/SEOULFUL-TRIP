@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.seoulfultrip.seoulfultrip.StartplaceAdapter.Companion.savestname
 import com.seoulfultrip.seoulfultrip.databinding.ItemPathBinding
-
 
 class MyPathViewHolder(val binding: ItemPathBinding) : RecyclerView.ViewHolder(binding.root) {
 }
@@ -36,4 +34,3 @@ class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage
             // No user is signed in
         }
     }
-}
