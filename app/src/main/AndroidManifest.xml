@@ -47,9 +47,9 @@
         <activity
             android:name=".MapActivity"
             android:exported="false" />
-        <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".HomeActivity"-->
+<!--            android:exported="false" />-->
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

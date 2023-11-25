@@ -14,7 +14,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
@@ -42,17 +42,25 @@
                 android:scaleType="fitCenter"
                 android:src="@android:drawable/ic_menu_search" />
 
-            <TextView
-                android:id="@+id/text_home"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/home_textbtn"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:text="저장한 경로"
-                android:textSize="20dp" />
-
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/text_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_textbtn"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="저장한 경로"
+            android:textSize="20dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeRecyclerView"
+            android:layout_below="@+id/text_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_home"
+            android:padding="10dp"/>
 
     </LinearLayout>
 

@@ -1,9 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeDetailActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/pathLayout"
+        android:orientation="vertical">
+
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_home"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:outlineSpotShadowColor="#799EEA">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/Hometoolbar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:menu="@menu/menu_delete">
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+        <!--
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pathRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="경로를 지도로 확인하기"
+                android:textColor="@color/black"
+                android:gravity="left"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/targetsize"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp">
+
+                <ImageView
+                    android:id="@+id/itemImageView1"
+                    android:layout_width="43dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/icon_place"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/itemNameView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sample text : 아이템 장소 이름"
+                    android:textColor="#000000"
+                    android:textSize="19dp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    android:layout_marginLeft="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/itemImageView1"
+                    app:layout_constraintStart_toEndOf="@+id/itemImageView1"
+                    app:layout_constraintTop_toTopOf="@+id/itemImageView1" />
+
+                <View
+                    android:id="@+id/item_pathline1"
+                    android:layout_width="2.5dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#486BBB"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/itemImageView1" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp">
+
+                <ImageView
+                    android:id="@+id/itemImageView2"
+                    android:layout_width="43dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/icon_place"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/itemNameView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sample text : 아이템 장소 이름"
+                    android:textColor="#000000"
+                    android:textSize="19dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="8dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/itemImageView2"
+                    app:layout_constraintStart_toEndOf="@+id/itemImageView2"
+                    app:layout_constraintTop_toTopOf="@+id/itemImageView2" />
+
+                <View
+                    android:id="@+id/item_pathline2"
+                    android:layout_width="2.5dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#486BBB"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/itemImageView2" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp">
+
+                <ImageView
+                    android:id="@+id/itemImageView3"
+                    android:layout_width="43dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/icon_place"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/itemNameView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sample text : 아이템 장소 이름"
+                    android:textColor="#000000"
+                    android:textSize="19dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="8dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/itemImageView3"
+                    app:layout_constraintStart_toEndOf="@+id/itemImageView3"
+                    app:layout_constraintTop_toTopOf="@+id/itemImageView3" />
+
+                <View
+                    android:id="@+id/item_pathline3"
+                    android:layout_width="2.5dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#486BBB"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/itemImageView3" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp">
+
+                <ImageView
+                    android:id="@+id/itemImageView4"
+                    android:layout_width="43dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/icon_place"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/itemNameView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sample text : 아이템 장소 이름"
+                    android:textColor="#000000"
+                    android:textSize="19dp"
+                    android:layout_marginLeft="8dp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/itemImageView4"
+                    app:layout_constraintStart_toEndOf="@+id/itemImageView4"
+                    app:layout_constraintTop_toTopOf="@+id/itemImageView4" />
+
+                <View
+                    android:id="@+id/item_pathline4"
+                    android:layout_width="2.5dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#486BBB"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/itemImageView4" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp">
+
+                <ImageView
+                    android:id="@+id/itemImageView5"
+                    android:layout_width="43dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/icon_place"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/itemNameView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sample text : 아이템 장소 이름"
+                    android:textColor="#000000"
+                    android:textSize="19dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="8dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/itemImageView5"
+                    app:layout_constraintStart_toEndOf="@+id/itemImageView5"
+                    app:layout_constraintTop_toTopOf="@+id/itemImageView5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

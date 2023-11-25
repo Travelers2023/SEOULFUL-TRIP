@@ -40,7 +40,6 @@ class PathActivity : AppCompatActivity() {
     var flatitude: Double? = 0.0//도착지 위도
     var flongitude: Double? = 0.0//도착지 경도
 
-
     companion object{
         var itemList = mutableListOf<PlaceStorage>()
         var pnamelist= mutableListOf<String?>()
@@ -185,23 +184,21 @@ class PathActivity : AppCompatActivity() {
     private fun savePath() {
         val db = Firebase.firestore
         val pathName = binding.pathName.text.toString()
-        val pname1 = binding.itemNameView1.text.toString()
-        val pname2 = binding.itemNameView2.text.toString()
-        val pname3 = binding.itemNameView3.text.toString()
-        val pname4 = binding.itemNameView4.text.toString()
-        val pname5 = binding.itemNameView5.text.toString()
-
-        Log.d("경로 이름이 뭐예요","${pathName}")
+        val pstart = binding.itemNameView1.text.toString()
+        val pname1 = binding.itemNameView2.text.toString()
+        val pname2 = binding.itemNameView3.text.toString()
+        val pname3 = binding.itemNameView4.text.toString()
+        val pname4 = binding.itemNameView5.text.toString()
 
         val data = hashMapOf(
             "email" to MyApplication.email,
             "pathDate" to dateToString(Date()),
             "pathName" to pathName,
+            "pstart" to pstart,
             "pname1" to pname1,
             "pname2" to pname2,
             "pname3" to pname3,
-            "pname4" to pname4,
-            "pname5" to pname5
+            "pname4" to pname4
         )
 
         db.collection("path")
