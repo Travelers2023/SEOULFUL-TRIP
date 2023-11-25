@@ -155,7 +155,9 @@ class PathActivity : AppCompatActivity() {
         when (item.itemId) {
             android.R.id.home -> { // 뒤로가기 버튼
                 savestname.clear() //화면 넘어가도 배열은 남아있어서 값전달 잘못돼서 배열초기화
-
+                savestname.clear()
+                newsavepname.clear()
+                pnamelist.clear()
             }
 
             R.id.next1_button -> {  //저장 버튼을 누르면...
@@ -176,6 +178,7 @@ class PathActivity : AppCompatActivity() {
                 savepname.clear()
                 savestname.clear()
                 newsavepname.clear()
+                pnamelist.clear()
             }
         }
         return super.onOptionsItemSelected(item)
