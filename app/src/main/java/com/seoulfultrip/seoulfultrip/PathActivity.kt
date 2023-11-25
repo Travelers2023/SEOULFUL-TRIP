@@ -76,7 +76,7 @@ class PathActivity : AppCompatActivity() {
                 for (document in result) {
                     val item = document.toObject(PlaceStorage::class.java)
                     if(user?.email == item.email) {  // 이메일 같은 것만 itemList에 넣기
-                        item.docId = document.id
+                        //item.docId = document.id
                         itemList.add(item)
                     }
                     Log.d("d", " ${itemList.size}")

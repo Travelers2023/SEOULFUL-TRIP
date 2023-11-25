@@ -54,6 +54,7 @@
                 android:gravity="left"
                 android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/targetsize"
+                android:visibility="gone"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
