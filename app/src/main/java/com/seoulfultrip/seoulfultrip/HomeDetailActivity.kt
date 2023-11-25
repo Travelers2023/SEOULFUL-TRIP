@@ -1,9 +1,8 @@
 package com.seoulfultrip.seoulfultrip
 
 import android.os.Bundle
-import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.firestore.FirebaseFirestore
 import com.seoulfultrip.seoulfultrip.databinding.ActivityHomeDetailBinding
 
 class HomeDetailActivity : AppCompatActivity() {
@@ -20,4 +19,19 @@ class HomeDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화
 
     }
+
+    override fun onRestart() {
+        super.onRestart()
+        SaveFragment().refreshAdapter()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> { // 뒤로가기 버튼
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
