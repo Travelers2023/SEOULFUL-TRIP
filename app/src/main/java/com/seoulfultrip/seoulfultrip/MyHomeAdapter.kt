@@ -35,6 +35,7 @@ class MyHomeAdapter(val context: Context, val itemList: MutableList<PathStorage>
             homeCv1.setOnClickListener{
 
                 Intent(context, HomeDetailActivity::class.java).apply {
+                    putExtra("docId", data.docId)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.run { context.startActivity(this) }
             }
