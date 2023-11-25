@@ -12,8 +12,8 @@ class MyPathViewHolder(val binding: ItemPathBinding) : RecyclerView.ViewHolder(b
 }
 
 class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage>): RecyclerView.Adapter<MyPathViewHolder>() {
-    lateinit var data : PlaceStorage
-    val startPlace:String? = StartplaceAdapter.savestname[0] // 출발지 이름
+    lateinit var data: PlaceStorage
+    val startPlace: String? = StartplaceAdapter.savestname[0] // 출발지 이름
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPathViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -34,3 +34,4 @@ class MyPathAdapter(val context: Context, val itemList: MutableList<PlaceStorage
             // No user is signed in
         }
     }
+}
