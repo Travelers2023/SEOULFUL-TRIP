@@ -7,9 +7,11 @@ import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -191,8 +193,23 @@ class SearchResultActivity : AppCompatActivity()  {
 
         var place = intent.getStringExtra("keyword")
 
-        // 검색 시 누른 enter 제거
-        place = place?.replace(System.getProperty("line.separator").toString(), "")
+        //엔터키 이벤트 처리
+        binding.edtProduct2.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            when (keyCode) {
+                KeyEvent.KEYCODE_ENTER -> {
+                    val inputManager =
+                        this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputManager.hideSoftInputFromWindow(
+                        this.currentFocus!!.windowToken,
+                        InputMethodManager.HIDE_NOT_ALWAYS
+                    )
+                    false
+
+                    binding.btnSearch2.callOnClick()
+                }
+            }
+            false
+        })
 
         binding.edtProduct2.setText(place)
 

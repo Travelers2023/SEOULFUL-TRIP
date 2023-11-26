@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="8"
+            android:singleLine="true"
             android:background="@drawable/searchrectangle"
             android:hint="지역/장소명을 입력해주세요."
             />
