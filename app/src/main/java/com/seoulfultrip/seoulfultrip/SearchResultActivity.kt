@@ -192,6 +192,7 @@ class SearchResultActivity : AppCompatActivity()  {
         setContentView(binding.root)
 
         var place = intent.getStringExtra("keyword")
+        binding.edtProduct2.setText(place)
 
         //엔터키 이벤트 처리
         binding.edtProduct2.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
@@ -210,8 +211,6 @@ class SearchResultActivity : AppCompatActivity()  {
             }
             false
         })
-
-        binding.edtProduct2.setText(place)
 
         val CLIENT_ID = "2KTCwVgsVBGNBNdgkM5p"
         val CLIENT_SECRET = "N52lPewB0q"
