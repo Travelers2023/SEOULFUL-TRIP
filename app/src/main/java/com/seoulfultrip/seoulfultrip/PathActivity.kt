@@ -276,6 +276,8 @@ class PathActivity : AppCompatActivity() {
 
                         when (newsavepname.size){
                             0->{ Log.d("최종리스트-0", "${pnamelist}")
+                                endPlace = pnamelist?.lastOrNull()?.toString()
+                                Log.d("endPlace","${endPlace}")
                                 listvisible()
                                 continue}
                             1->{pnamelist.add(newsavepname[0]) //하나 남은 장소 최종리스트에 추가
