@@ -5,4 +5,5 @@
     <string name="title_activity_select">SelectActivity</string>
     <string name="title_activity_path">PathActivity</string>
     <string name="title_activity_home_detail">HomeDetailActivity</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
 </resources>
