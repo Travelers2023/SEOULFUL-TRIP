@@ -3,6 +3,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -66,6 +67,22 @@ class PathActivity : AppCompatActivity() {
                 this.currentFocus!!.windowToken,
                 InputMethodManager.HIDE_NOT_ALWAYS
             )
+            false
+        })
+
+        //엔터키 이벤트 처리
+        binding.pathName.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            when (keyCode) {
+                KeyEvent.KEYCODE_ENTER -> {
+                    val inputManager =
+                        this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputManager.hideSoftInputFromWindow(
+                        this.currentFocus!!.windowToken,
+                        InputMethodManager.HIDE_NOT_ALWAYS
+                    )
+                    false
+                }
+            }
             false
         })
 
@@ -159,6 +176,7 @@ class PathActivity : AppCompatActivity() {
                 savestname.clear()
                 newsavepname.clear()
                 pnamelist.clear()
+//                itemList.clear()
             }
 
             R.id.next1_button -> {  //저장 버튼을 누르면...
@@ -168,7 +186,8 @@ class PathActivity : AppCompatActivity() {
                     finish()
                 }
                 else{
-                    Toast.makeText(this,"제목을 입력해주세요.",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"경로 이름을 입력해 주세요.",Toast.LENGTH_SHORT).show()
+                    return super.onOptionsItemSelected(item)
                 }
                 // 홈 프레그먼트로 이동
                 val intent = Intent(this,MainActivity::class.java)
@@ -180,6 +199,7 @@ class PathActivity : AppCompatActivity() {
                 savestname.clear()
                 newsavepname.clear()
                 pnamelist.clear()
+                itemList.clear()
             }
         }
         return super.onOptionsItemSelected(item)
