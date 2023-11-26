@@ -67,7 +67,7 @@ class SearchFragment : Fragment() {
         binding.btnSearch.setOnClickListener{
 
             var keyword = binding.edtProduct.text.toString()
-            if(keyword.isNullOrBlank()){
+            if(keyword == null){
                 Toast.makeText(this.context,"검색어를 입력해주세요", Toast.LENGTH_LONG).show()
             } else {
                 val intent = Intent(getActivity(), SearchResultActivity::class.java)
