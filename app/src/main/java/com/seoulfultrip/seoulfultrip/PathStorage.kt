@@ -10,5 +10,5 @@ data class PathStorage(
     var pname2: String? = null,
     var pname3: String? = null,
     var pname4: String? = null,
-    var pend: String = ""
+    var pend: String = "",
 )

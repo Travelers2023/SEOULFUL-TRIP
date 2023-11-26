@@ -31,6 +31,7 @@ class PathActivity : AppCompatActivity() {
     var startPlace:String? = savestname[0] // 출발지 이름
     lateinit var adapter: MyPathAdapter
     lateinit var pathID: String
+    var endPlace: String? = null
     //최종경로 저장
     var durationarray = mutableListOf<Int?>() //시간 저장
     var durationpname :MutableMap<Int?, String?> = mutableMapOf() //시간-이름 저장
@@ -201,7 +202,8 @@ class PathActivity : AppCompatActivity() {
             "pname1" to pname1,
             "pname2" to pname2,
             "pname3" to pname3,
-            "pname4" to pname4
+            "pname4" to pname4,
+            "pend" to endPlace
         )
 
         db.collection("path")
@@ -216,7 +218,7 @@ class PathActivity : AppCompatActivity() {
     }
 
     private fun dateToString(date: Date): String {
-        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN)
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
         return format.format(date)
     }
 
@@ -258,6 +260,7 @@ class PathActivity : AppCompatActivity() {
                         else{ durationarray.add(time) //시간 비교하기 위해 durationarray(mutablelist)에 시간만 모아서 저장
                             durationpname.put(time,pname) }
                     }*/
+
                     // 시간에 따른 장소이름 출력하기 위해 duraionpname(mutableMap)에 key값은 시간 value값은 장소로 저장
                     Log.d("시간확인", "${time}")
                     Log.d("시간-장소 확인", "${durationpname}")
@@ -272,11 +275,13 @@ class PathActivity : AppCompatActivity() {
                         arrayreset(nextpname) //최소시간으로 가져온 거 list에서 제외
 
                         when (newsavepname.size){
-                            0->{ Log.d("최종리스트", "${pnamelist}")
+                            0->{ Log.d("최종리스트-0", "${pnamelist}")
                                 listvisible()
                                 continue}
                             1->{pnamelist.add(newsavepname[0]) //하나 남은 장소 최종리스트에 추가
-                                Log.d("최종리스트", "${pnamelist}")
+                                Log.d("최종리스트-1", "${pnamelist}")
+                                endPlace = pnamelist?.lastOrNull()?.toString()
+                                Log.d("endPlace","${endPlace}")
                                 listvisible()
                                 continue}
                             else->{pstart(nextpname)} //장소 여러개 남았을 때 아까 구한 최소시간 장소 넘겨주기
@@ -325,6 +330,7 @@ class PathActivity : AppCompatActivity() {
                 Log.d("시작도착${index}", " ${slongitude},${slatitude}")
             }
         }
+
         for (index in 0..itemList.size - 1) {
             val num = itemList.get(index)
             for (index in 0..newsavepname.size - 1) {
@@ -335,7 +341,6 @@ class PathActivity : AppCompatActivity() {
                     //pnamelong.put(num.pname, flongitude)
                     Log.d("apistart", "apistart다시")
                     apistart(slongitude, slatitude, flongitude, flatitude, num.pname)
-
                 }
             }
         }
@@ -366,7 +371,8 @@ class PathActivity : AppCompatActivity() {
                     2 -> { binding.itemNameView3.setText(pnamelist[index])
                         binding.itemNameView3.visibility=View.VISIBLE
                         binding.itemImageView3.visibility=View.VISIBLE
-                        binding.itemPathline2.visibility=View.VISIBLE}
+                        binding.itemPathline2.visibility=View.VISIBLE
+                    }
 
                     3 -> {binding.itemNameView4.setText(pnamelist[index])
                         binding.itemNameView4.visibility=View.VISIBLE

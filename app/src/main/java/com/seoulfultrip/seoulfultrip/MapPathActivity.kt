@@ -250,11 +250,6 @@ Log.d("d", "${itemList.get(0)}")
 
         }
 
-
-
-
-
-
     companion object{
         private const val LOCATION_PERMISSION_REQUEST_CODE=1000
     }
