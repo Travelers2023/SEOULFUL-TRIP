@@ -29,16 +29,11 @@ import com.seoulfultrip.seoulfultrip.PathActivity.Companion.pnamelist
 class MapPathActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
-    //var itemList = mutableListOf<PlaceStorage>()
     var slatitude: Double? = 0.0 //출발지 위도
     var slongitude: Double? = 0.0//출발지 경도
     var longitudelist = mutableListOf<Double?>()
     var latitudelist = mutableListOf<Double?>()
-    /*
-        companion object{
-            lateinit var naverMap: NaverMap
-        }
-        private lateinit var mapView: MapView*/
+
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -48,16 +43,10 @@ class MapPathActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
-        /*
-                mapView = binding.mapView
-                mapView.onCreate(savedInstanceState)
-                mapView.getMapAsync(this)*/
 
 
-        //mapFragment.getMapAsync(this)
-
-Log.d("d", "${itemList.get(0)}")
-        //Log.d("d", "${num}")
+            Log.d("d", "${itemList.get(0)}")
+            //Log.d("d", "${num}")
 
             for(i in 0..pnamelist.size-1) {
                 for (index in 0..itemList.size - 1) {
@@ -113,17 +102,9 @@ Log.d("d", "${itemList.get(0)}")
         this.naverMap = naverMap
         naverMap.locationSource = locationSource
 
-        val geocoder = Geocoder(this)
 
-        val roadaddress = intent.getStringExtra("roadaddress")
-
-
-            /*var ad = CameraPosition(LatLng(x,y),10.0)
-            Log.d("ad","ad:" + ad)
-            naverMap.cameraPosition = ad*/
         val path = PathOverlay()
 
-        //for (index in 0 until pnamelist.size)
         when(pnamelist.size) {
             1 -> {
                 path.coords = listOf(
