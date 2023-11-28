@@ -32,11 +32,8 @@ class MapActivity : FragmentActivity(), OnMapReadyCallback {
 
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
-/*
-    companion object{
-        lateinit var naverMap: NaverMap
-    }
-    private lateinit var mapView: MapView*/
+
+
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -46,13 +43,7 @@ class MapActivity : FragmentActivity(), OnMapReadyCallback {
 
 
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
-/*
-        mapView = binding.mapView
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(this)*/
 
-
-        //mapFragment.getMapAsync(this)
 
 
         val geocoder = Geocoder(this)
@@ -115,9 +106,6 @@ class MapActivity : FragmentActivity(), OnMapReadyCallback {
             val y = a.longitude
             Log.d("y","y:" + y)
 
-            /*var ad = CameraPosition(LatLng(x,y),10.0)
-            Log.d("ad","ad:" + ad)
-            naverMap.cameraPosition = ad*/
 
 
             val options = NaverMapOptions()
@@ -127,7 +115,6 @@ class MapActivity : FragmentActivity(), OnMapReadyCallback {
                 MapFragment.newInstance(options)
 
 
-            //mapFragment.getMapAsync(this)
 
             runOnUiThread{
                 val marker = Marker() //지도에 마커표시

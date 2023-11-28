@@ -17,9 +17,7 @@ class StartplaceViewHolder(val binding: ItemSaveBinding) : RecyclerView.ViewHold
 }
 
 class StartplaceAdapter(val context: Context, val itemList: MutableList<PlaceStorage>): RecyclerView.Adapter<StartplaceViewHolder>() {
-//    companion object {
-//        val startPlace: String? = null
-//    }
+
 companion object {
     val savestname = mutableListOf<String?>()
 }

@@ -94,8 +94,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
 
         val binding = FragmentMapBinding.inflate(inflater, container, false)
 
