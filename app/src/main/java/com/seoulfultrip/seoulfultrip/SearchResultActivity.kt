@@ -62,19 +62,10 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
         val user = Firebase.auth.currentUser
         var data = itemList?.get(position)
 
-
-//        val placeRef = db.collection("place").whereEqualTo("pname", placeName)
-
-        // 이메일로 장소 이름 걸러오기
         var placeRef = db.collection("place").whereEqualTo("pname", placeName)
 
         if(user?.email == data?.email) { // 이메일이 같다면 장소 이름을 받아오기
-            placeRef = db.collection("place").whereEqualTo("pname", placeName)
-        }
-
-
-        // 로그인한 아이디에서 동일한 장소가 저장되어있는지 확인해야 할 듯 -> 내가 이해한 코드가 아닐까봐 고치지는 않음
-        if(user?.email == data?.email) {
+            // 로그인한 아이디에서 동일한 장소가 저장되어있는지 확인해야 할 듯 -> 내가 이해한 코드가 아닐까봐 고치지는 않음
             placeRef.get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     if (!task.result.isEmpty) {
@@ -86,6 +77,7 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
                         binding.saveBtn.visibility = View.VISIBLE
                         binding.saveBtn1.visibility = View.GONE
                     }
+                    Log.d("Firestore - 장소", "장소 불러오기 성공")
                 } else {
                     Log.d("Firestore", "Error getting documents: ", task.exception)
                 }
