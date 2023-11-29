@@ -59,17 +59,14 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
         val itemList: MutableList<PlaceStorage>? = null
         val user = Firebase.auth.currentUser
         var data = itemList?.get(position)
-
-        // 이메일로 장소 이름 걸러오기
         var placeRef = db.collection("place").whereEqualTo("pname", placeName)
 
-//        if(user?.email == data?.email) { // 이메일이 같다면 장소 이름을 받아오기
-//            placeRef = db.collection("place").whereEqualTo("pname", placeName)
-//        }
-
-
-        if(user?.email == data?.email) {
-            placeRef.get().addOnCompleteListener { task ->
+        // Firestore에서 해당 장소가 있는지 확인하는 코드
+        db.collection("place")
+            .whereEqualTo("pname", placeName)
+            .whereEqualTo("email", user?.email)
+            .get()
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     if (!task.result.isEmpty) {
                         // 동일한 장소가 이미 존재하는 경우
@@ -77,17 +74,40 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
                         binding.saveBtn1.visibility = View.VISIBLE
                     } else {
                         // 동일한 장소가 존재하지 않는 경우
-                        binding.saveBtn.visibility = View.GONE
-//                        binding.saveBtn1.visibility = View.GONE
-                        binding.saveBtn1.visibility = View.VISIBLE
+                        binding.saveBtn.visibility = View.VISIBLE
+                        binding.saveBtn1.visibility = View.GONE
                     }
-
                     Log.d("Firestore - 장소", "장소 불러오기 성공")
                 } else {
                     Log.d("Firestore", "Error getting documents: ", task.exception)
                 }
             }
-        }
+
+//        if(user?.email == data?.email) { // 이메일이 같다면 장소 이름을 받아오기
+//            placeRef = db.collection("place").whereEqualTo("pname", placeName)
+//        }
+
+
+//        if(user?.email == data?.email) {
+//            placeRef.get().addOnCompleteListener { task ->
+//                if (task.isSuccessful) {
+//                    if (!task.result.isEmpty) {
+//                        // 동일한 장소가 이미 존재하는 경우
+//                        binding.saveBtn.visibility = View.GONE
+//                        binding.saveBtn1.visibility = View.VISIBLE
+//                    } else {
+//                        // 동일한 장소가 존재하지 않는 경우
+//                        binding.saveBtn.visibility = View.GONE
+////                        binding.saveBtn1.visibility = View.GONE
+//                        binding.saveBtn1.visibility = View.VISIBLE
+//                    }
+//
+//                    Log.d("Firestore - 장소", "장소 불러오기 성공")
+//                } else {
+//                    Log.d("Firestore", "Error getting documents: ", task.exception)
+//                }
+//            }
+//        }
 
         val geocoder = Geocoder(context)
 
