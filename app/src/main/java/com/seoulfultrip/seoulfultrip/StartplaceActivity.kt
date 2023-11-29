@@ -16,8 +16,6 @@ class StartplaceActivity : AppCompatActivity() {
     lateinit var binding: ActivityStartplaceBinding
     val itemList = mutableListOf<PlaceStorage>()
 
-//    private lateinit var adapter: StartplaceAdapter
-//    var pname: Array<out String>?= arrayOf("")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

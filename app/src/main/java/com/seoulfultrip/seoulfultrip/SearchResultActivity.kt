@@ -32,9 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class PlaceRetrofitViewHolder(val binding: PlaceRetrofitBinding): RecyclerView.ViewHolder(binding.root)
 
 class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-//    companion object {
-//        lateinit var model : Items
-//    }
+
 
     override fun getItemCount(): Int {
         return datas?.size?: 0
@@ -62,10 +60,15 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
         val user = Firebase.auth.currentUser
         var data = itemList?.get(position)
 
+        // 이메일로 장소 이름 걸러오기
         var placeRef = db.collection("place").whereEqualTo("pname", placeName)
 
-        if(user?.email == data?.email) { // 이메일이 같다면 장소 이름을 받아오기
-            // 로그인한 아이디에서 동일한 장소가 저장되어있는지 확인해야 할 듯 -> 내가 이해한 코드가 아닐까봐 고치지는 않음
+//        if(user?.email == data?.email) { // 이메일이 같다면 장소 이름을 받아오기
+//            placeRef = db.collection("place").whereEqualTo("pname", placeName)
+//        }
+
+
+        if(user?.email == data?.email) {
             placeRef.get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     if (!task.result.isEmpty) {
@@ -74,9 +77,11 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
                         binding.saveBtn1.visibility = View.VISIBLE
                     } else {
                         // 동일한 장소가 존재하지 않는 경우
-                        binding.saveBtn.visibility = View.VISIBLE
-                        binding.saveBtn1.visibility = View.GONE
+                        binding.saveBtn.visibility = View.GONE
+//                        binding.saveBtn1.visibility = View.GONE
+                        binding.saveBtn1.visibility = View.VISIBLE
                     }
+
                     Log.d("Firestore - 장소", "장소 불러오기 성공")
                 } else {
                     Log.d("Firestore", "Error getting documents: ", task.exception)
@@ -158,12 +163,8 @@ class PlaceRetrofitAdapter(val context: Context, val datas: MutableList<Items>):
 
         binding.mapbutton.setOnClickListener {
 
-            var mapx = model.mapx
-            var mapy = model.mapy
             var roadaddress = model.roadAddress
             val intent = Intent(context, MapActivity::class.java)
-            intent.putExtra("mapx", mapx)
-            intent.putExtra("mapy", mapy)
             intent.putExtra("roadaddress",roadaddress)
             startActivity(context,intent,null)
 
@@ -214,7 +215,6 @@ class SearchResultActivity : AppCompatActivity()  {
             .build()
 
 
-       // var keyword = binding.edtProduct2.text.toString()
 
         val api = retrofit.create(PlaceAPI::class.java)
         val callGetSearchPlace = api.getSearchPlace(CLIENT_ID,CLIENT_SECRET,"${place}",5) //PlaceAPI 값 전달
@@ -271,25 +271,8 @@ class SearchResultActivity : AppCompatActivity()  {
         binding.backimg.setOnClickListener {
 
             finish()
-            var searchhomefragment = SearchFragment()
-            var bundle = Bundle()
 
-            //SearchResultActivity().supportFragmentManager.beginTransaction().replace(R.id.main_layout,searchhomefragment).commit()
-           /* supportFragmentManager.beginTransaction()
-                .replace(R.id, searchhomefragment)
-                .commit()*/
         }
-
-        /*Thread() {
-            @Override
-            fun run() {
-                runOnUiThread(Runnable() {
-                    fun run() {
-
-                    }
-                })
-            }
-        }*/
 
 
     }
