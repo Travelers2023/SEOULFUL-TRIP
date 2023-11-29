@@ -13,6 +13,7 @@ import com.google.firebase.ktx.Firebase
 import com.seoulfultrip.seoulfultrip.MyApplication.Companion.db
 import com.seoulfultrip.seoulfultrip.MySelectAdapter.Companion.savepname
 import com.seoulfultrip.seoulfultrip.databinding.ActivitySelectBinding
+import okhttp3.internal.notify
 
 class SelectActivity : AppCompatActivity() {
     lateinit var binding: ActivitySelectBinding
@@ -62,11 +63,13 @@ class SelectActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> { // 뒤로가기 버튼
+                savepname.clear() //화면 넘어가도 배열은 남아있어서 값전달 잘못돼서 배열초기화
                 finish()
             }
 
             R.id.delete_button -> { // 삭제 구현
                 deleteItem()
+                savepname.clear() //화면 넘어가도 배열은 남아있어서 값전달 잘못돼서 배열초기화
                 finish()
             }
 
